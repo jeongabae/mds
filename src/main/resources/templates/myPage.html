@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/mypageUser.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <h1>My Page</h1>
+        <div class="profile">
+            <div class="profile-detail">
+                <div id="photo"><img src="/image/profile.jpg"/></div>
+                <table>
+                    <tr>
+                        <td id="name" sec:authorize="isAuthenticated()"
+                            th:text="${#authentication.principal.name}"></td>
+                    </tr>
+                    <tr>
+                        <td id="email" sec:authorize="isAuthenticated()"
+                            th:text="${#authentication.principal.username}"></td>
+                    </tr>
+                    <tr>
+                        <td id="into" sec:authorize="isAuthenticated()"
+                            th:text="${#authentication.principal.major + ' ' + #authentication.principal.studentId}"></td>
+                    </tr>
+                </table>
+                <div id="pro-admin">
+                    <a th:href="@{/member/update}">
+                        <input type="button" id="pro" value="프로필 관리"/>
+                    </a>
+                </div>
+            </div>
+            <!--      <div id="del-info"><a th:href="@{/member/withdraw}">회원 탈퇴</a></div>-->
+            <div id="del-info">
+                <form th:action="@{/member/withdraw}" method="post">
+                    <button type="submit">회원 탈퇴</button>
+                </form>
+            </div>
+
+        </div>
+        <div id="info-name">내가 가입한 동아리</div>
+
+<!--        <div class="info-club">-->
+<!--            <div class="info-column1" th:each="club : ${clubs}" >-->
+<!--                <div class="both-club1">-->
+<!--                    <div id="photo-club1"><img th:attr="src=@{|/club/image/${club.imageFileName}|} ,-->
+<!--                alt=${club.name + ' 이미지'}" /></div>-->
+<!--                    <div id="name-club1" th:text="${club.name}">동아리1</div>-->
+<!--                </div>-->
+<!--                <div id="button-club1">-->
+<!--                    <a th:href="@{'/club/' + ${club.id}}">동아리 페이지 이동</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="info-club">
+            <div class="info-column1" th:if="${#lists.isEmpty(clubs)}">
+                <table>
+                    <tr>
+                        <td id="info-none">가입한 동아리가 아직 없습니다!</td>
+                    </tr>
+                    <tr>
+                        <td>다양한 동아리에 지원해보세요!</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-column1" th:unless="${#lists.isEmpty(clubs)}" th:each="club : ${clubs}">
+                <div class="both-club1">
+                    <div id="photo-club1"><img th:src="@{|/club/image/${club.imageFileName}|}" alt="" th:alt="${club.name + ' 이미지'}"/></div>
+                    <div id="name-club1" th:text="${club.name}">동아리1</div>
+                </div>
+                <div id="button-club1">
+                    <a th:href="@{'/club/' + ${club.id}}">동아리 페이지 이동</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+
+
+<div layout:fragment="content" class="community-content">
+    <div class="community-form-container">
+        <form th:action="@{|/community/modify/${id}|}" th:object="${postUpdateRequest}" class="community-form" method="post">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <div class="community-form-user">
+                <div class="user-icon"></div>
+                <div class="user-name" th:text="${name}"></div>
+                <!--            <select name="club" class="user-club">-->
+                <!--              <option value="">가입된 동아리 목록 선택</option>-->
+                <!--              <option value="club1">동아리1</option>-->
+                <!--              <option value="club2">동아리2</option>-->
+                <!--            </select>-->
+            </div>
+            <!--          <div class="community-form-image">-->
+            <!--            <a href="#">-->
+            <!--              <img src="/image/Camera.png" alt="" />-->
+            <!--              <div>사진 등록</div>-->
+            <!--            </a>-->
+            <!--          </div>-->
+            <textarea
+                    th:field="*{content}"
+                    placeholder="설명을 입력해주세요"
+                    class="community-form-desc"
+                    cols="30"
+                    rows="10"
+            ></textarea>
+            <div class="community-form-btn-container">
+                <input class="community-form-btn" type="submit" value="등록하기"/>
+                <!--            <a class="community-form-btn" href="#">등록하기</a>-->
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+  <link rel="stylesheet" href="/css/basic.css" />
+  <link rel="stylesheet" href="/css/mypageNone.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+</th:block>
+    <div layout:fragment="content" class="content">
+      <div class="content-container">
+        <h1>My Page</h1>
+        <div class="profile">
+          <div class="profile-detail">
+            <div id="photo"><img src="/image/profile.jpg" /></div>
+            <table>
+              <tr>
+                <td id="name">홍길동</td>
+              </tr>
+              <tr>
+                <td id="email">yellowduck@yonsei.ac.kr</td>
+              </tr>
+              <tr>
+                <td id="into">컴퓨터정보통신공학부 2020253059</td>
+              </tr>
+            </table>
+            <div id="pro-admin">
+              <input type="button" id="pro" value="프로필 관리" />
+            </div>
+          </div>
+          <div id="del-info"><a href="">회원 탈퇴</a></div>
+        </div>
+        <div id="info-name">내가 가입한 동아리</div>
+        <div class="info-club">
+          <table>
+            <tr>
+              <td id="info-none">가입한 동아리가 아직 없습니다!</td>
+            </tr>
+            <tr>
+              <td>다양한 동아리에 지원해보세요!</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+</html>

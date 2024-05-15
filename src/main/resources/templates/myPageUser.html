@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/mypageUser.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <h1>My Page</h1>
+        <div class="profile">
+            <div class="profile-detail">
+                <div id="photo"><img src="/image/profile.jpg"/></div>
+                <table>
+                    <tr>
+                        <td id="name">홍길동</td>
+                    </tr>
+                    <tr>
+                        <td id="email">yellowduck@yonsei.ac.kr</td>
+                    </tr>
+                    <tr>
+                        <td id="into">컴퓨터정보통신공학부 2020253059</td>
+                    </tr>
+                </table>
+                <div id="pro-admin">
+                    <input type="button" id="pro" value="프로필 관리"/>
+                </div>
+            </div>
+            <div id="del-info"><a href="">회원 탈퇴</a></div>
+        </div>
+        <div id="info-name">내가 가입한 동아리</div>
+        <div class="info-club">
+            <div class="info-column1">
+                <div class="both-club1">
+                    <div id="photo-club1"><img src="/image/profile.jpg"/></div>
+                    <div id="name-club1">동아리1</div>
+                </div>
+                <div id="button-club1">
+                    <a href="/html/clubDetail.html">동아리 페이지 이동</a>
+                </div>
+            </div>
+            <div class="info-column2">
+                <div class="both-club2">
+                    <div id="photo-club2"><img src="/image/profile.jpg"/></div>
+                    <div id="name-club2">동아리2</div>
+                </div>
+                <div id="button-club2">
+                    <a href="/html/clubDetail.html">동아리 페이지 이동</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/signup.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <h1>SIGN UP</h1>
+        <form th:action="@{/member/signup}" th:object="${memberCreateRequest}" method="post">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <table>
+                <tr>
+                    <td id="label">Email</td>
+                    <td><input type="email" th:field="*{email}" id="email"/></td>
+                    <td><input type="button" id="dup" value="중복 체크"/></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" th:field="*{name}"id="name"/></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" th:field="*{password1}" id="pw"/></td>
+                </tr>
+                <tr>
+                    <td>Confirm<br/>Password</td>
+                    <td><input type="password" th:field="*{password2}" id="cn-pw"/></td>
+                </tr>
+                <tr>
+                    <td>Student ID</td>
+                    <td><input type="number" th:field="*{studentId}"  id="st-id"/></td>
+                </tr>
+                <tr>
+                    <td>Major</td>
+                    <td><input type="text" th:field="*{major}" id="major"/></td>
+                </tr>
+            </table>
+            <div class="sub">
+                <input type="submit" id="submit" value="SIGN UP"/>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

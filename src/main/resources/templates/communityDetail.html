@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+
+<div layout:fragment="content" class="community-content">
+    <div class="community-form-container">
+        <div class="community-form">
+            <div class="community-form-user">
+                <div class="user-icon"></div>
+                <div th:if="${post.author != null}"
+                     th:text="${post.author.name}"class="user-name"></div>
+                <div class="user-club">#동아리1</div>
+
+            </div>
+            <div class="community-form-image">
+                <img src="/image/image-test.jpg" alt=""/>
+            </div>
+            <div class="community-form-desc" th:text="${post.content}"></div>
+        </div>
+        <hr/>
+
+        <div class="community-comment">
+            <div class="community-comment-title" th:text="|${#lists.size(post.commentList)}개의 comments|"></div>
+
+            <div th:each="comment : ${post.commentList}" class="community-comment-card">
+                <div class="user-icon"></div>
+                <div class="user-area">
+                    <div th:if="${comment.author != null}"
+                         th:text="${comment.author.name}" class="user-name"></div>
+                    <div class="user-comment" th:text="${comment.content}"></div>
+                </div>
+
+                <div class="">
+<!--                    댓글 수정 버튼-->
+                    <a th:href="@{|/commment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
+                       th:text="수정"></a>
+<!--                    뎃글 삭제 버튼-->
+                    <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}"
+                       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                       th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
+                       th:text="삭제"></a>
+                </div>
+            </div>
+
+            <!--          내가 추가한 부분-->
+            <div class="community-comment-card">
+                <div class="user-icon"></div>
+                <div class="user-area">
+                    <div class="user-name">홍길동</div>
+                    <form th:action="@{|/comment/create/${post.id}|}" th:object="${commentCreateRequest}"
+                          class="comment-form" method="post">
+                        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                        <div class="form-group">
+                            <textarea sec:authorize="isAnonymous()" disabled class="user-comment"
+                                      th:field="*{content}" placeholder="로그인 후 댓글 작성 가능합니다."></textarea>
+                            <textarea sec:authorize="isAuthenticated()" class="user-comment"
+                                      th:field="*{content}" placeholder="댓글을 입력하세요"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="댓글 등록" class="comment-submit-btn">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+<!--            게시물 수정 삭제 버튼-->
+            <div class="community-new">
+                <a th:href="@{|/community/modify/${post.id}|}"
+                   sec:authorize="isAuthenticated()"
+                   th:if="${post.author!=null and #authentication.getPrincipal().getUsername()==post.author.email}"
+                   th:text="수정" class="new-btn"></a>
+
+                <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${post.id}|}"
+                   class="delete btn btn-sm btn-outline-secondary new-btn" sec:authorize="isAuthenticated()"
+                   th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.email}"
+                   th:text="삭제"></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+
+    function toggleEditForm(commentId) {
+        const editForm = document.getElementById('edit-comment-form-' + commentId);
+        // 댓글 수정 입력 폼 보이기/숨기기 토글
+        if (editForm.style.display === 'none') {
+            editForm.style.display = 'block';
+        } else {
+            editForm.style.display = 'none';
+        }
+    }
+</script>
+</html>

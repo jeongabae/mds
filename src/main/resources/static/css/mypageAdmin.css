@@ -1,0 +1,174 @@
+.content {
+  display: flex;
+  justify-content: center;
+  height: 1200px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+}
+
+.content-container {
+  width: 1920px;
+}
+
+h1 {
+  padding-top: 100px;
+  padding-bottom: 30px;
+  font-size: 30pt;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 70px;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+  height: 250px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: auto;
+}
+
+#photo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+
+#photo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+}
+
+#name {
+  font-weight: 700;
+  font-style: bold;
+  font-size: 30pt;
+  text-align: left;
+}
+
+#email {
+  font-size: 15pt;
+  color: #858585;
+  text-align: left;
+}
+
+#pro-admin {
+  display: flex;
+  align-items: center;
+}
+
+#pro {
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  color: #858585;
+  border: 1px solid #858585;
+  font-size: 15pt;
+}
+
+#del-info {
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 340px;
+}
+
+#del-info a {
+  text-decoration-line: underline;
+}
+
+#del-info a:link, a:visited {
+  color: black;
+}
+
+#info-name {
+  width: 1000px;
+  height: auto;
+  font-weight: 700;
+  font-style: bold;
+  font-size: 25pt;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 340px;
+  padding-bottom: 15px;
+}
+
+.info-club {
+  display: flex;
+  flex-direction: row;
+  gap: 70px;
+  justify-content: space-around;
+  align-items: center;
+  width: 1000px;
+  height: 220px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.both-club {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+}
+
+#photo-club {
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#photo-club img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  display: flex;
+}
+
+#name-club {
+  text-align: left;
+  font-size: 20pt;
+  font-weight: 700;
+  display: flex;
+}
+
+#button-club {
+  width: 200px;
+  height: 50px;
+  border: 1px solid #2C6AF5;
+  border-radius: 5px;
+  background-color: #2C6AF5;
+  font-size: 12pt;
+  text-align: center;
+  line-height: 50px;
+}
+
+#button-club a {
+  color: white;
+  text-decoration-line: none;
+}
+
+#button-club a:link, a:visited {
+  color: white;
+}

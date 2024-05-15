@@ -1,0 +1,80 @@
+.content {
+  display: flex;
+  justify-content: center;
+  height: 1200px;
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+}
+
+.content-container {
+  width: 1920px;
+}
+
+h1 {
+  padding-top: 100px;
+  padding-bottom: 30px;
+  font-size: 30pt;
+}
+
+table {
+  width: 1200px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table tr {
+  cursor: pointer;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+.name-club {
+  font-weight: 700;
+  font-size: 20pt;
+  text-align: left;
+}
+
+.title-club {
+  font-size: 15pt;
+}
+
+.date-club {
+  font-size: 15pt;
+  text-align: right;
+}
+
+.number {
+  padding-top: 40px;
+  font-size: 15pt;
+}
+
+.number a {
+  text-decoration-line: none;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.number a:link,
+.number a:visited {
+  color: black;
+}
+
+#write {
+  width: 120px;
+  height: 35px;
+  font-size: 13pt;
+  background-color: #2c6af5;
+  color: white;
+  position: absolute;
+  right: 250px;
+  border: 1px solid #2c6af5;
+  border-radius: 5px;
+}

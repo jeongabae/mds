@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/club.css"/>
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="club-content">
+    <div class="content-container">
+        <div class="club-type-name">
+            <span class="title">ALL</span>
+            <span class="subtitle">동아리 전체</span>
+        </div>
+        <div class="content-clubs" >
+            <a th:href="@{|/club/${club.id}|}" class="club-card" th:each="club : ${clubList}">
+                <div class="club-img"><img th:attr="src=@{|/club/image/${club.image.storeFileName}|} ,
+                alt=${club.name + ' 이미지'}"></div>
+                <div class="club-name" th:text="${club.name}"></div>
+                <div class="club-name" th:text="${club.image.storeFileName}"></div>
+            </a>
+<!--            <a href="/html/clubDetail.html" class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 1</div>-->
+<!--            </a>-->
+<!--            <a class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 2</div>-->
+<!--            </a>-->
+<!--            <a class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 3</div>-->
+<!--            </a>-->
+<!--            <a class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 4</div>-->
+<!--            </a>-->
+<!--            <a class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 5</div>-->
+<!--            </a>-->
+<!--            <a class="club-card">-->
+<!--                <div class="club-img"></div>-->
+<!--                <div class="club-name">동아리 6</div>-->
+<!--            </a>-->
+        </div>
+    </div>
+</div>
+</html>

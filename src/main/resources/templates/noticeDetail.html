@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+  <link rel="stylesheet" href="/css/basic.css" />
+  <link rel="stylesheet" href="/css/noticeDetail.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+</th:block>
+    <div layout:fragment="content" class="content">
+      <div class="content-container">
+        <table>
+          <tr>
+            <td id="info-title">공지사항 제목</td>
+          </tr>
+          <tr>
+            <td id="info-name">동아리 1</td>
+            <td id="info-date">2024-04-12</td>
+          </tr>
+        </table>
+        <div id="detail">공지사항 내용</div>
+        <div class="submit">
+          <input type="submit" value="수정하기" id="edit" />
+          <input type="submit" value="삭제하기" id="del" />
+        </div>
+      </div>
+    </div>
+</html>

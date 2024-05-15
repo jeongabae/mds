@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<!--<head>-->
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <h1>LOGIN</h1>
+        <form th:action="@{/member/login}" method="post">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    사용자 이메일 또는 비밀번호를 다시 확인해주세요.
+                </div>
+                <!--            여기서부터 다시 하기~~~~-->
+            </div>
+            <div class="login">
+                <input type="email" name="username" id="email" placeholder="Email"/>
+            </div>
+            <div class="login">
+                <input type="password" name="password" id="password" placeholder="Password"/>
+            </div>
+            <div class="login sub">
+                <input type="submit" id="submit" value="LOGIN"/>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

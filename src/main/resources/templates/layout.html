@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>맛동산</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Montserrat:ital@0;1&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+        <th:block layout:fragment="cssstyle"></th:block>
+</head>
+<body>
+    <header th:replace="~{header :: headerFragment}"></header>
+    <th:block layout:fragment="content"></th:block>
+    <footer th:replace="~{footer :: footerFragment}"></footer>
+    <!-- Bootstrap JS -->
+    <script th:src="@{/bootstrap.min.js}"></script>
+    <!-- 자바스크립트 Start -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 자바스크립트 End -->
+</body>
+</html>
+
+

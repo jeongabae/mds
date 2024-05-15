@@ -1,0 +1,68 @@
+.content {
+  display: flex;
+  justify-content: center;
+  height: 1000px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+}
+
+.content-container {
+  width: 1920px;
+}
+
+h1 {
+  padding-top: 100px;
+  padding-bottom: 30px;
+  font-size: 30pt;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 17pt;
+  font-weight: 300;
+  padding-top: 20px;
+}
+
+tr, td {
+  padding-right: 40px;
+  padding-bottom: 25px;
+}
+
+#email, #name, #pw, #cn-pw, #st-id, #major {
+  width: 300px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#dup {
+  width: 100px;
+  height: 50px;
+  color: white;
+  background-color: #B1B1B1;
+  border: 1px solid #B1B1B1;
+  border-radius: 10px;
+  font-size: 12pt;
+}
+
+.sub {
+  padding-top: 40px;
+}
+
+#submit {
+  width: 200px;
+  height: 60px;
+  border: 1px solid #2C6AF5;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 13pt;
+  color: white;
+  background-color: #2C6AF5;
+}

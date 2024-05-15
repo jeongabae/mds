@@ -1,0 +1,183 @@
+.content {
+  display: flex;
+  justify-content: center;
+  height: 1200px;
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+}
+
+.content-container {
+  width: 1920px;
+}
+
+.content-page {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 70px;
+}
+
+.content-page ul {
+  display: flex;
+  list-style: none;
+  gap: 2px;
+  font-size: 12pt;
+}
+
+.content-page ul a {
+  box-sizing: border-box;
+  display: flex;
+  padding-top: 30px;
+  text-decoration: none;
+  color: black;
+}
+
+.content-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-title ul {
+  list-style: none;
+}
+
+.content-title #club-name {
+  font-size: 30pt;
+  font-weight: 900;
+}
+
+.content-title #club-intro {
+  font-size: 15pt;
+  color: #646464;
+}
+
+.content-detail {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  height: auto;
+  padding: 50px 70px;
+}
+
+.content-detail .club-photo {
+  display: flex;
+  width: 350px;
+  height: 400px;
+  background-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+}
+
+.content-detail .club-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-left: 100px;
+}
+
+.content-detail .club-content img {
+  width: 18px;
+  height: 18px;
+}
+
+.content-detail .club-content .club-slogan #slogan-title {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+.content-detail .club-content .club-slogan #slogan-content {
+  font-size: 9pt;
+}
+
+.content-detail .club-content .club-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  padding-top: 20px;
+}
+
+.content-detail .club-content .club-detail #location-title,
+#member-title,
+#money-title {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+.content-detail .club-content .club-detail #location-content,
+#member-content,
+#money-content {
+  font-size: 9pt;
+  text-align: right;
+}
+
+.content-detail .club-content .club-pre,
+.club-apply {
+  font-size: 12pt;
+  font-weight: 700;
+  padding-top: 30px;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 300px;
+}
+
+.edit-button input {
+  width: 120px;
+  height: 40px;
+}
+
+.edit-button #submit {
+  color: white;
+  background-color: #2c6af5;
+  border: 1px solid #2c6af5;
+  border-radius: 5px;
+  font-size: 12pt;
+}
+
+/* 상세 동아리 페이지 하단부분 */
+
+.club {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 200px;
+}
+
+.club .detail-menu {
+  display: flex;
+  flex-direction: row;
+  box-shadow: inset 0 -3px 0 rgb(224, 224, 224);
+}
+
+.club .detail-menu ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.club .detail-menu ul a {
+  box-sizing: border-box;
+  display: flex;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: black;
+  border-bottom: 3px solid transparent;
+}
+
+.club .detail-menu ul a:hover {
+  border-bottom: 3px solid #2c6af5;
+}
+
+/*타임리프하다가 전가배가 추가함*/
+.club-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

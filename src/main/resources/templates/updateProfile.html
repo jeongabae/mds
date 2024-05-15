@@ -1,0 +1,93 @@
+<!--<!DOCTYPE html>-->
+<!--<html layout:decorate="~{layout}">-->
+<!--<th:block layout:fragment="cssstyle">-->
+<!--  <link rel="stylesheet" href="/css/basic.css" />-->
+<!--  <link rel="stylesheet" href="/css/profile.css" />-->
+<!--  <link rel="stylesheet" href="/css/global.css" />-->
+<!--</th:block>-->
+<!--    <div layout:fragment="content" class="content">-->
+<!--      <div class="content-container">-->
+<!--        <h1>프로필 관리</h1>-->
+<!--        <table>-->
+<!--          <tr>-->
+<!--            <td id="label">Email</td>-->
+<!--            <td><input type="email" id="email" /></td>-->
+<!--            <td><input type="button" id="dup" value="중복 체크" /></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Name</td>-->
+<!--            <td><input type="text" id="name" /></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Password</td>-->
+<!--            <td><input type="password" id="pw" /></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Confirm<br />Password</td>-->
+<!--            <td><input type="password" id="cn-pw" /></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Student ID</td>-->
+<!--            <td><input type="text" id="st-id" /></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Major</td>-->
+<!--            <td><input type="text" id="major" /></td>-->
+<!--          </tr>-->
+<!--        </table>-->
+<!--        <div class="sub">-->
+<!--          <input type="submit" id="submit" value="수정 완료" />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+  <th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+  </th:block>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+  <div class="content-container">
+    <h1>프로필 관리</h1>
+    <form id="updateForm" th:action="@{/member/update}" method="post" th:object="${updateRequest}">
+      <table>
+        <tr>
+          <td id="label">Email</td>
+          <td><input type="email" id="email" name="email" th:field="*{email}" /></td>
+          <td><input type="button" id="dup" value="중복 체크" /></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td><input type="text" id="name" name="name" th:field="*{name}" /></td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td><input type="password" id="pw" name="password" th:field="*{password}" /></td>
+        </tr>
+        <tr>
+          <td>Confirm<br />Password</td>
+          <td><input type="password" id="cn-pw" name="password2" th:field="*{password2}" /></td>
+        </tr>
+        <tr>
+          <td>Student ID</td>
+          <td><input type="text" id="st-id" name="studentId" th:field="*{studentId}" /></td>
+        </tr>
+        <tr>
+          <td>Major</td>
+          <td><input type="text" id="major" name="major" th:field="*{major}" /></td>
+        </tr>
+      </table>
+      <div class="sub">
+        <input type="submit" id="submit" value="수정 완료" />
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

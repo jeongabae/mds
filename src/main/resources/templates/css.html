@@ -1,0 +1,6 @@
+<th:block th:fragment="styles">
+  <!-- 여기서 CSS 파일들을 동적으로 설정 -->
+  <th:block th:each="cssFile : ${cssFiles}">
+    <link rel="stylesheet" th:href="@{|/css/${cssFile}.css|}" />
+  </th:block>
+</th:block>

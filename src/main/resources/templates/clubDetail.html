@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/clubDetail.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <div class="content-page">
+            <ul>
+                <li><a href="/html/clubAll.html">동아리 &gt; </a></li>
+                <li>
+                    <a href="/html/clubPerformingArts.html" th:text="${club.category}+' >'"></a>
+                </li>
+                <li><a href="/html/clubDetail.html" th:text="${club.name}"></a></li>
+            </ul>
+        </div>
+        <div class="content-title">
+            <ul>
+                <li id="club-name" th:text="${club.name}">동아리명</li>
+                <li id="club-intro" th:text="${club.title}">짧은 소개글</li>
+            </ul>
+        </div>
+        <div class="content-detail">
+            <div class="club-photo"><img th:attr="src=@{|/club/image/${club.image.storeFileName}|} ,
+                alt=${club.name + ' 이미지'}"></div>
+            <div class="club-content">
+                <div class="club-slogan">
+                    <p id="slogan-title">
+                        <img src="/image/Light bulb.png"/> 동아리 표어
+                    </p>
+                    <p id="slogan-content" th:utext="${club.explanation.replaceAll('\n', '<br>')}">
+
+                    </p>
+                </div>
+                <div class="club-detail">
+                    <div class="club-location">
+                        <p id="location-title">
+                            <img src="/image/Location.png" /> 동방 위치
+                        </p>
+                        <p id="location-content" th:text="${club.location}"></p>
+                    </div>
+                    <div class="club-member">
+                        <p id="member-title">
+                            <img src="/image/PeopleImg.png"/> 동아리 구성원
+                        </p>
+                        <p id="member-content">20명</p>
+                    </div>
+                    <div class="club-money">
+                        <p id="money-title">
+                            <img src="/image/Money.png"/> 동아리 회비
+                        </p>
+                        <p id="money-content" th:text="${club.money}">20,000원</p>
+                    </div>
+                </div>
+                <div class="club-pre">
+                    <img src="/image/Leadership.png"/> 동아리장 :
+                    컴퓨터정보통신공학부 홍길동 010-1234-5678
+                </div>
+                <div class="club-apply">
+                    <img src="/image/Form.png"/> 지원하기 : 폼 링크
+                </div>
+            </div>
+        </div>
+        <div class="edit-button">
+            <input type="submit" value="소개 수정" id="submit"/>
+        </div>
+        <div class="club">
+            <div class="detail-menu">
+                <ul>
+                    <li><a href="#">동아리 공지</a></li>
+                    <li><a href="#">동아리 사진</a></li>
+                    <!-- 관리자만 해당 탭이 보이도록 -->
+                    <li><a href="#">동아리 구성원 관리</a></li>
+                </ul>
+            </div>
+            <div>dd</div>
+        </div>
+    </div>
+</div>
+</html>

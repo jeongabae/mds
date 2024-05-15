@@ -1,0 +1,56 @@
+.content {
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+}
+
+.content-container {
+  width: 1920px;
+}
+
+h1 {
+  padding-top: 100px;
+  padding-bottom: 30px;
+  font-size: 30pt;
+}
+
+.login {
+  padding: 10px;
+}
+
+.sub {
+  padding-top: 60px;
+}
+
+#email, #password {
+  width: 300px;
+  height: 70px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  color: #858585;
+  font-size: 15pt;
+}
+
+#submit {
+  width: 200px;
+  height: 60px;
+  border: 1px solid #2C6AF5;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 13pt;
+  color: white;
+  background-color: #2C6AF5;
+}

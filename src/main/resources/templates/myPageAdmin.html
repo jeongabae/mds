@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/mypageAdmin.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <div class="content-container">
+        <h1>My Page</h1>
+        <div class="profile">
+            <div class="profile-detail">
+                <div id="photo"><img src="/image/profile.jpg"/></div>
+                <table>
+                    <tr>
+                        <td id="name">동아리명</td>
+                    </tr>
+                    <tr>
+                        <td id="email">dongari@sample.ac.kr</td>
+                    </tr>
+                </table>
+                <div id="pro-admin">
+                    <input type="button" id="pro" value="프로필 관리"/>
+                </div>
+            </div>
+            <div id="del-info"><a href="">회원 탈퇴</a></div>
+        </div>
+        <div id="info-name">내가 관리하는 동아리</div>
+        <div class="info-club">
+            <div class="both-club">
+                <div id="photo-club"><img src="/image/profile.jpg"/></div>
+                <div id="name-club">동아리</div>
+            </div>
+            <div id="button-club"><a href="">동아리 페이지 이동</a></div>
+        </div>
+    </div>
+</div>
+</html>
