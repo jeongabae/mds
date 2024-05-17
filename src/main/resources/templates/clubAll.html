@@ -8,41 +8,27 @@
 <div layout:fragment="content" class="club-content">
     <div class="content-container">
         <div class="club-type-name">
-            <span class="title">ALL</span>
-            <span class="subtitle">동아리 전체</span>
+            <!-- 카테고리에 따라 다른 텍스트 출력 -->
+            <span class="title" th:text="${category != null ?
+    (category == '공연예술분과' ? 'Performing Arts' :
+    (category == '사회활동분과' ? 'Social Activity' :
+    (category == '생활체육분과' ? 'Life Sports' :
+    (category == '예술전시분과' ? 'Art Exhibition' :
+    (category == '음악연주분과' ? 'Music Performance' :
+    (category == '종교활동분과' ? 'Religious Activities' :
+    (category == '학술연구분과' ? 'Academic Research' : ''))))))) : 'ALL'}"></span>
+            <span class="subtitle" th:text="${category == null ? '동아리 전체' : category}"></span>
+
         </div>
-        <div class="content-clubs" >
+
+        <div class="content-clubs">
             <a th:href="@{|/club/${club.id}|}" class="club-card" th:each="club : ${clubList}">
                 <div class="club-img"><img th:attr="src=@{|/club/image/${club.image.storeFileName}|} ,
                 alt=${club.name + ' 이미지'}"></div>
                 <div class="club-name" th:text="${club.name}"></div>
-                <div class="club-name" th:text="${club.image.storeFileName}"></div>
             </a>
-<!--            <a href="/html/clubDetail.html" class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 1</div>-->
-<!--            </a>-->
-<!--            <a class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 2</div>-->
-<!--            </a>-->
-<!--            <a class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 3</div>-->
-<!--            </a>-->
-<!--            <a class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 4</div>-->
-<!--            </a>-->
-<!--            <a class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 5</div>-->
-<!--            </a>-->
-<!--            <a class="club-card">-->
-<!--                <div class="club-img"></div>-->
-<!--                <div class="club-name">동아리 6</div>-->
-<!--            </a>-->
         </div>
+
     </div>
 </div>
 </html>

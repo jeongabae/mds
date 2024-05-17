@@ -36,5 +36,15 @@ public class Post {
     @ManyToOne
     private Club club; // 하나의 동아리에 속함
 
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PostImage image;
+
+    public String getImageFileName() {
+        if (this.image != null) {
+            return this.image.getStoreFileName();
+        }
+        return null; // 이미지가 없을 경우 null 반환
+    }
+
 
 }

@@ -69,5 +69,9 @@ public class ClubService {
     }
 
 
+    @Transactional
+    public List<Club> getClubsByCategory(String category) {
+        return clubRepository.findByCategory(category);
+    }
 
 }

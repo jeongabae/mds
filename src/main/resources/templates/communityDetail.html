@@ -13,11 +13,14 @@
                 <div class="user-icon"></div>
                 <div th:if="${post.author != null}"
                      th:text="${post.author.name}"class="user-name"></div>
-                <div class="user-club">#동아리1</div>
+                <div class="user-club" th:text="${post.club.name}">#동아리1</div>
 
             </div>
             <div class="community-form-image">
-                <img src="/image/image-test.jpg" alt=""/>
+                <img th:attr="src=@{|/post/image/${post.image.storeFileName}|},
+             alt=${post.image.getStoreFileName() + ' 이미지'}">
+
+<!--                <img src="/image/image-test.jpg" alt=""/>-->
             </div>
             <div class="community-form-desc" th:text="${post.content}"></div>
         </div>
@@ -35,12 +38,12 @@
                 </div>
 
                 <div class="">
-<!--                    댓글 수정 버튼-->
+                    <!--                    댓글 수정 버튼-->
                     <a th:href="@{|/commment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
                        sec:authorize="isAuthenticated()"
                        th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
                        th:text="수정"></a>
-<!--                    뎃글 삭제 버튼-->
+                    <!--                    뎃글 삭제 버튼-->
                     <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}"
                        class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                        th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
@@ -52,7 +55,8 @@
             <div class="community-comment-card">
                 <div class="user-icon"></div>
                 <div class="user-area">
-                    <div class="user-name">홍길동</div>
+                    <div class="user-name" sec:authorize="isAuthenticated()" th:text="${#authentication.principal.name}">홍길동</div>
+                    <div class="user-name" sec:authorize="isAnonymous()"></div>
                     <form th:action="@{|/comment/create/${post.id}|}" th:object="${commentCreateRequest}"
                           class="comment-form" method="post">
                         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
@@ -70,7 +74,7 @@
 
             </div>
 
-<!--            게시물 수정 삭제 버튼-->
+            <!--            게시물 수정 삭제 버튼-->
             <div class="community-new">
                 <a th:href="@{|/community/modify/${post.id}|}"
                    sec:authorize="isAuthenticated()"

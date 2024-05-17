@@ -59,12 +59,30 @@ public class ClubController {
         return ResponseEntity.ok(clubResponseList);
     }
 
-    @GetMapping("/all")
-    public String list(Model model){
-        List<Club> clubList = this.clubService.getAllClubs();
+//    @GetMapping("/all")
+//    public String list(Model model){
+//        List<Club> clubList = this.clubService.getAllClubs();
+//        model.addAttribute("clubList", clubList);
+//        return "clubAll";
+//    }
+
+//    @GetMapping("/category/{category}")
+//    public String getClubsByCategory(@PathVariable("category") String category, Model model) {
+//        List<Club> clubList = clubService.getClubsByCategory(category);
+//        model.addAttribute("category", category);
+//        model.addAttribute("clubList", clubList);
+//        return "clubAll";
+//    }
+
+    @Operation(summary = "카테고리별 동아리 조회")
+    @GetMapping("/category/{category}")
+    public String getClubsByCategory(@PathVariable("category") String category, Model model) {
+        List<Club> clubList = "all".equals(category)
+                ? this.clubService.getAllClubs()
+                : this.clubService.getClubsByCategory(category);
+        model.addAttribute("category", "all".equals(category) ? null : category);
         model.addAttribute("clubList", clubList);
-//        List<Post> postList = this.postService.getPostList();
-//        model.addAttribute("postList", postList);
+
         return "clubAll";
     }
 
@@ -74,4 +92,6 @@ public class ClubController {
         model.addAttribute("club",club);
         return "clubDetail";
     }
+
+
 }

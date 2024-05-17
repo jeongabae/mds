@@ -19,9 +19,12 @@
         <div class="community-clubs">
             <div th:each="post, loop: ${paging}">
                 <!--            <div th:each="post : ${postList}">-->
-                <!-- 게시물(card)을 클릭하면 해당 게시물의 세부 내용을 보여주는 페이지로 이동 -->
+<!--                 게시물(card)을 클릭하면 해당 게시물의 세부 내용을 보여주는 페이지로 이동 -->
                 <a th:href="@{|/community/${post.id}|}" class="community-card">
-                    <div class="community-img"></div>
+                    <div class="community-img">
+                        <img th:attr="src=@{|/post/image/${post.image.storeFileName}|},
+             alt=${post.image.getStoreFileName() + ' 이미지'}">
+                    </div>
                     <div class="community-user">
                         <div class="community-user-icon"></div>
                         <!--                <div class="community-title" th:text="${post.author}">작성자1</div>-->
@@ -29,7 +32,7 @@
                         <div th:if="${post.author != null}"
                              th:text="${post.author.name}" class="community-title"></div>
                         <!--                <div class="community-title" >작성자1</div>-->
-                        <div class="community-club">#동아리1</div>
+                        <div class="community-club" th:text="'#' +${post.club.name}">#동아리1</div>
                     </div>
                     <!-- 게시물의 내용을 표시하는 부분 -->
                     <div class="community-desc" th:text="${post.content}">설명</div>

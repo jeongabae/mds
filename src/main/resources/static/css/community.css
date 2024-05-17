@@ -218,6 +218,7 @@ header .head-menu ul a#community {
 .community-content .community-card .community-img {
   height: 420px;
   background-color: #d8d8d8;
+  /*background-color: white;*/
   border-radius: 20px;
   transition: box-shadow 0.3s;
 }
@@ -249,4 +250,20 @@ header .head-menu ul a#community {
 .community-content .community-card .community-club {
   font-size: 18px;
   font-weight: 300;
+}
+
+/*타임리프하다가 전가배가 추가함*/
+.community-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+/*타임리프하다가 전가배가 추가함*/
+#image_container > img{
+  width: 900px;
+  height: 900px;
+  object-fit: cover;
+  border-radius: 10px;
 }

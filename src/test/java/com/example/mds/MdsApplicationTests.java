@@ -37,10 +37,10 @@ class MdsApplicationTests {
 //        assertEquals(6, all.size());
 //        Post p = all.get(0);
 //        assertEquals("첫번째 게시물", p.getTitle());
-        for(int i=1;i<=300;i++){
-            String content = String.format("테스트 데이터입니다.:[%03d]", i);
-            this.postService.create(content, null);
-        }
+//        for(int i=1;i<=300;i++){
+//            String content = String.format("테스트 데이터입니다.:[%03d]", i);
+//            this.postService.create(content, null);
+//        }
     }
 
 }

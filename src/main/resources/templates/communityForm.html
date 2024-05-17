@@ -9,23 +9,27 @@
 
 <div layout:fragment="content" class="community-content">
     <div class="community-form-container">
-        <form th:action="@{/community/create}" th:object="${postCreateRequest}" class="community-form" method="post">
+        <form th:action="@{/community/create}" th:object="${postCreateRequest}" class="community-form" method="post" enctype="multipart/form-data">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="community-form-user">
                 <div class="user-icon"></div>
                 <div class="user-name" th:text="${#authentication.principal.name}">홍길동</div>
-                <!--            <select name="club" class="user-club">-->
-                <!--              <option value="">가입된 동아리 목록 선택</option>-->
-                <!--              <option value="club1">동아리1</option>-->
-                <!--              <option value="club2">동아리2</option>-->
-                <!--            </select>-->
+                <select name="clubId" class="user-club" th:field="*{clubId}">
+                    <option value="">가입된 동아리 목록 선택</option>
+                    <!-- 사용자가 가입한 동아리 목록을 반복하면서 옵션을 생성합니다 -->
+                    <th:block th:each="club : ${clubs}">
+                        <option th:value="${club.id}" th:text="${club.name}"></option>
+                    </th:block>
+                </select>
             </div>
-            <!--          <div class="community-form-image">-->
-            <!--            <a href="#">-->
-            <!--              <img src="/image/Camera.png" alt="" />-->
-            <!--              <div>사진 등록</div>-->
-            <!--            </a>-->
-            <!--          </div>-->
+            <div class="community-form-image">
+                <label for="imageUpload">
+                    <img src="/image/Camera.png" alt="사진 등록" id="imageClick" style="cursor: pointer;"/>
+                </label>
+                <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;"  onchange="setThumbnail(event);"/>
+<!--                <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;" />-->
+                <div id="image_container"></div>
+            </div>
             <textarea
                     th:field="*{content}"
                     placeholder="설명을 입력해주세요"
@@ -40,5 +44,51 @@
         </form>
     </div>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+    // document.getElementById('imageClick').addEventListener('click', function() {
+    //     document.getElementById('imageUpload').click();
+    // });
+    function setThumbnail(event) {
+        var reader = new FileReader();
 
+        reader.onload = function(event) {
+            // 기존에 추가된 이미지가 있는지 확인하고 있다면 삭제
+            var existingThumbnail = document.querySelector("div#image_container img");
+            if (existingThumbnail) {
+                existingThumbnail.remove();
+            }
+
+            // 새로운 이미지 추가
+            var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            document.querySelector("div#image_container").appendChild(img);
+
+            // 이미지가 추가된 후에만 사진 레이블 숨기기
+            document.getElementById('imageClick').style.display = 'none';
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // 이미지 썸네일을 클릭했을 때 파일 입력(input[type=file])을 다시 받도록함.
+    document.getElementById('image_container').addEventListener('click', function() {
+        document.getElementById('imageUpload').click();
+    });
+
+
+    // 파일이 선택되면 해당 파일을 썸네일로 보여줌.
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+        clearThumbnail(); // 기존 썸네일 삭제
+        setThumbnail(event);
+    });
+
+    // 기존 썸네일을 삭제하는 함수
+    function clearThumbnail() {
+        var container = document.getElementById('image_container');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+    }
+
+</script>
 </html>
