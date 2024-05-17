@@ -89,6 +89,8 @@ public class ClubController {
     @GetMapping("/{id}")
     public String detail(Model model, @PathVariable("id") Long id){
         Club club = this.clubService.getClub(id);
+        long memberCount = clubService.getClubMemberCount(id);
+        model.addAttribute("memberCount", memberCount);
         model.addAttribute("club",club);
         return "clubDetail";
     }

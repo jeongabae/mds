@@ -3,9 +3,9 @@ package com.example.mds.service;
 import com.example.mds.dto.club.request.ClubCreateRequest;
 import com.example.mds.entity.Club;
 import com.example.mds.entity.ClubImage;
-import com.example.mds.entity.Post;
 import com.example.mds.handler.DataNotFoundException;
 import com.example.mds.repository.ClubImageRepository;
+import com.example.mds.repository.ClubMemberRepository;
 import com.example.mds.repository.ClubRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -21,11 +21,14 @@ public class ClubService {
     private final ClubImageService clubImageService;
     private final ClubImageRepository clubImageRepository;
     private final ClubRepository clubRepository;
+    private final ClubMemberRepository clubMemberRepository;
 
-    public ClubService(ClubImageService clubImageService, ClubImageRepository clubImageRepository, ClubRepository clubRepository) {
+
+    public ClubService(ClubImageService clubImageService, ClubImageRepository clubImageRepository, ClubRepository clubRepository, ClubMemberRepository clubMemberRepository) {
         this.clubImageService = clubImageService;
         this.clubImageRepository = clubImageRepository;
         this.clubRepository = clubRepository;
+        this.clubMemberRepository = clubMemberRepository;
     }
 
     @Transactional
@@ -72,6 +75,10 @@ public class ClubService {
     @Transactional
     public List<Club> getClubsByCategory(String category) {
         return clubRepository.findByCategory(category);
+    }
+
+    public long getClubMemberCount(Long clubId) {
+        return clubMemberRepository.countByClubId(clubId);
     }
 
 }
