@@ -21,7 +21,7 @@
                             th:text="${#authentication.principal.username}"></td>
                     </tr>
                     <tr>
-                        <td id="into" sec:authorize="isAuthenticated()"
+                        <td id="info" sec:authorize="isAuthenticated()"
                             th:text="${#authentication.principal.major + ' ' + #authentication.principal.studentId}"></td>
                     </tr>
                 </table>
@@ -39,28 +39,15 @@
             </div>
 
         </div>
-        <div id="info-name">내가 가입한 동아리</div>
-
-<!--        <div class="info-club">-->
-<!--            <div class="info-column1" th:each="club : ${clubs}" >-->
-<!--                <div class="both-club1">-->
-<!--                    <div id="photo-club1"><img th:attr="src=@{|/club/image/${club.imageFileName}|} ,-->
-<!--                alt=${club.name + ' 이미지'}" /></div>-->
-<!--                    <div id="name-club1" th:text="${club.name}">동아리1</div>-->
-<!--                </div>-->
-<!--                <div id="button-club1">-->
-<!--                    <a th:href="@{'/club/' + ${club.id}}">동아리 페이지 이동</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div id="info-name" th:text="${memberRole == 'ROLE_USER' ? '내가 가입한 동아리' : '내가 관리하는 동아리'}">내가 가입한 동아리</div>
         <div class="info-club">
             <div class="info-column1" th:if="${#lists.isEmpty(clubs)}">
                 <table>
                     <tr>
-                        <td id="info-none">가입한 동아리가 아직 없습니다!</td>
+                        <td id="info-none" th:text="${memberRole == 'ROLE_USER' ? '가입한 동아리가 아직 없습니다!' : '관리하는 동아리가 아직 없습니다!'}">가입한 동아리가 아직 없습니다!</td>
                     </tr>
                     <tr>
-                        <td>다양한 동아리에 지원해보세요!</td>
+                        <td th:text="${memberRole == 'ROLE_USER' ? '다양한 동아리에 지원해보세요!' : '동아리를 만들어보세요!'}">다양한 동아리에 지원해보세요!</td>
                     </tr>
                 </table>
             </div>

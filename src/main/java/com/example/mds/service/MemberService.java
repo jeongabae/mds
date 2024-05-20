@@ -7,13 +7,12 @@ import com.example.mds.entity.ClubMember;
 import com.example.mds.entity.Member;
 import com.example.mds.entity.Post;
 import com.example.mds.handler.DataNotFoundException;
-import com.example.mds.repository.ClubRepository;
-import com.example.mds.repository.CommentRepository;
-import com.example.mds.repository.MemberRepository;
-import com.example.mds.repository.PostRepository;
+import com.example.mds.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.data.jdbc.core.JdbcAggregateOperations;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +29,7 @@ public class MemberService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final ClubRepository clubRepository;
+    private final ClubMemberRepository clubMemberRepository;
 
 
     public Member create(String email, String name, String password, Long studentId, String major){
@@ -40,6 +40,18 @@ public class MemberService {
         member.setStudentId(studentId);
         member.setMajor(major);
         member.setRole(MemberRole.USER);
+        this.memberRepository.save(member);
+        return member;
+    }
+
+    public Member createClubAdmin(String email, String name, String password, Long studentId, String major){
+        Member member = new Member();
+        member.setEmail(email);
+        member.setName(name);
+        member.setPassword(passwordEncoder.encode(password));
+        member.setStudentId(studentId);
+        member.setMajor(major);
+        member.setRole(MemberRole.ADMIN);
         this.memberRepository.save(member);
         return member;
     }
@@ -86,8 +98,7 @@ public class MemberService {
     @Transactional
     public void joinClub(Long studentId, Long clubId) {
         Member member = memberRepository.findByStudentId(studentId)
-         .orElseThrow(() -> new RuntimeException("Member not found with student ID: " + studentId));
-
+                .orElseThrow(() -> new RuntimeException("Member not found with student ID: " + studentId));
 
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new RuntimeException("Club not found with ID: " + clubId));
@@ -95,10 +106,8 @@ public class MemberService {
         ClubMember clubMember = new ClubMember();
         clubMember.setMember(member);
         clubMember.setClub(club);
-        club.getMembers().add(clubMember);
 
-        memberRepository.save(member);
-        clubRepository.save(club);
+        clubMemberRepository.save(clubMember);
     }
 
     @Transactional
@@ -109,11 +118,12 @@ public class MemberService {
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new RuntimeException("Club not found with ID: " + clubId));
 
-        club.getMembers().removeIf(cm -> cm.getMember().getStudentId().equals(studentId));
+        ClubMember clubMember = clubMemberRepository.findByMemberAndClub(member, club)
+                .orElseThrow(() -> new RuntimeException("ClubMember not found for given member and club"));
 
-        memberRepository.save(member);
-        clubRepository.save(club);
+        clubMemberRepository.delete(clubMember);
     }
+
 
     public List<Club> getClubsForMember(String email) {
         Member member = memberRepository.findByEmail(email)
@@ -122,4 +132,13 @@ public class MemberService {
         return member.getClubs().stream().map(ClubMember::getClub).collect(Collectors.toList());
     }
 
+    public MemberRole getRoleByEmail(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Member not found with student ID: " + email));
+        if (member != null) {
+            return member.getRole();
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+    }
 }

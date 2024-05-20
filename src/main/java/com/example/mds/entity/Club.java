@@ -1,6 +1,7 @@
 package com.example.mds.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +43,22 @@ public class Club {
     private String category;
 
     @OneToOne(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private ClubImage image;
+
+
+    @OneToMany(mappedBy = "club")
+    @JsonIgnore
+    private List<ClubMember> members = new ArrayList<>();
+
+    @OneToMany(mappedBy = "club")
+    @JsonIgnore
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    @JsonIgnore
+    private Member admin;
 
     public String getImageFileName() {
         if (this.image != null) {
@@ -51,9 +67,5 @@ public class Club {
         return null; // 이미지가 없을 경우 null 반환
     }
 
-    @OneToMany(mappedBy = "club")
-    private List<ClubMember> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "club")
-    private List<Post> posts = new ArrayList<>();
 }

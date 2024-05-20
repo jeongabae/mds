@@ -1,6 +1,7 @@
 package com.example.mds.entity;
 
 import com.example.mds.common.MemberRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,5 +36,6 @@ public class Member {
     private MemberRole role;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<ClubMember> clubs = new ArrayList<>();
 }

@@ -28,7 +28,7 @@
             <div class="club-content">
                 <div class="club-slogan">
                     <p id="slogan-title">
-                        <img src="/image/Light bulb.png"/> 동아리 표어
+                        <img src="/image/Light bulb.png"/> 동아리 설명
                     </p>
                     <p id="slogan-content" th:utext="${club.explanation.replaceAll('\n', '<br>')}">
 
@@ -51,12 +51,13 @@
                         <p id="money-title">
                             <img src="/image/Money.png"/> 동아리 회비
                         </p>
-                        <p id="money-content" th:text="${club.money}">20,000원</p>
+                        <p id="money-content" th:text="${club.money}+'원'">20,000원</p>
                     </div>
                 </div>
                 <div class="club-pre">
-                    <img src="/image/Leadership.png"/> 동아리장 :
-                    컴퓨터정보통신공학부 홍길동 010-1234-5678
+<!--                    <img src="/image/Leadership.png" th:text="' 동아리 이메일 : '+${club.admin.getEmail()}"/>-->
+                    <img src="/image/Leadership.png" th:if="${club.admin != null}" th:text="' 동아리 이메일 : '+${club.admin.getEmail()}"/>
+                    <img src="/image/Leadership.png" th:if="${club.admin == null}" th:text="' 동아리 이메일 : '"/>
                 </div>
                 <div class="club-apply">
                     <img src="/image/Form.png"/> 지원하기 : 폼 링크

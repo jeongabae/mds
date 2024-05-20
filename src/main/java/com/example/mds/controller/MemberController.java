@@ -1,5 +1,6 @@
 package com.example.mds.controller;
 
+import com.example.mds.common.MemberRole;
 import com.example.mds.dto.club.response.ClubDetailResponse;
 import com.example.mds.dto.club.response.MyClubsResponse;
 import com.example.mds.dto.member.request.MemberCreateRequest;
@@ -68,6 +69,23 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @Operation(summary = "관리자 회원가입")
+    @PostMapping("/signup-admin")
+    public ResponseEntity<Member> createClubAdmin(@RequestBody MemberCreateRequest memberCreateRequest, BindingResult bindingResult) {
+        if (!memberCreateRequest.getPassword1().equals(memberCreateRequest.getPassword2())){
+            bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 비밀번호가 일치하지 않습니다.");
+        }
+        Member createdMember = memberService.createClubAdmin(
+                memberCreateRequest.getEmail(),
+                memberCreateRequest.getName(),
+                memberCreateRequest.getPassword1(),
+                memberCreateRequest.getStudentId(),
+                memberCreateRequest.getMajor()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
+    }
+
     @GetMapping("/login")
     public String login(){
         return "login";
@@ -80,8 +98,15 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public String mypage(Model model){
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            // 인증되지 않은 사용자의 경우 처리
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
         String userEmail = authentication.getName(); // 현재 로그인한 사용자의 이메일 가져오기
+        MemberRole memberRole = memberService.getRoleByEmail(userEmail); //권한에 따라 다른 마이페이지 화면 보이게 하기
+
         List<Club> clubs = memberService.getClubsForMember(userEmail);
         List<MyClubsResponse> myClubsResponses = clubs.stream().map(club -> {
             MyClubsResponse response = new MyClubsResponse(
@@ -92,6 +117,7 @@ public class MemberController {
             return response;
         }).collect(Collectors.toList());
         model.addAttribute("clubs", myClubsResponses);
+        model.addAttribute("memberRole", memberRole.getValue());
         return "myPage";
     }
 
@@ -146,23 +172,24 @@ public class MemberController {
 
     @Operation(summary = "동아리에 회원 가입시키기")
     @PostMapping("/join")
-    public ResponseEntity<String> joinClub(@RequestParam Long studentId, @RequestParam Long clubId) {
+    public ResponseEntity<String> joinClub(@RequestParam("studentId") Long studentId, @RequestParam("clubId") Long clubId) {
         memberService.joinClub(studentId, clubId);
         return new ResponseEntity<>("Joined club successfully", HttpStatus.OK);
     }
 
     @Operation(summary = "동아리에서 회원 탈퇴시키기")
     @PostMapping("/leave")
-    public ResponseEntity<String> leaveClub(@RequestParam Long studentId, @RequestParam Long clubId) {
+    public ResponseEntity<String> leaveClub(@RequestParam("studentId") Long studentId, @RequestParam("clubId") Long clubId) {
         memberService.leaveClub(studentId, clubId);
         return new ResponseEntity<>("Left club successfully", HttpStatus.OK);
     }
 
     @Operation(summary = "회원이 가입한 동아리 목록 가져오기")
-    @GetMapping("/{studentId}/clubs")
-    public ResponseEntity<List<Club>> getClubsForMember(@PathVariable String email) {
+    @GetMapping("/{email}/clubs")
+    public ResponseEntity<List<Club>> getClubsForMember(@PathVariable("email") String email) {
         List<Club> clubs = memberService.getClubsForMember(email);
         return new ResponseEntity<>(clubs, HttpStatus.OK);
     }
+
 
 }

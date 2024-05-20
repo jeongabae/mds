@@ -95,5 +95,12 @@ public class ClubController {
         return "clubDetail";
     }
 
+    @Operation(summary = "동아리장 설정")
+    @PostMapping("/{clubName}/assign-admin/{memberName}")
+    public ResponseEntity<Club> assignAdminToClub(@PathVariable("clubName") String clubName, @PathVariable("memberName") String memberName) {
+        Club updatedClub = clubService.assignAdminToClub(clubName, memberName);
+        return ResponseEntity.ok(updatedClub);
+    }
+
 
 }
