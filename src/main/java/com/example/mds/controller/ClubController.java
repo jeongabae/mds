@@ -4,6 +4,8 @@ import com.example.mds.dto.club.request.ClubCreateRequest;
 import com.example.mds.dto.club.response.ClubDetailResponse;
 import com.example.mds.dto.comment.request.CommentCreateRequest;
 import com.example.mds.entity.Club;
+import com.example.mds.entity.ClubMember;
+import com.example.mds.entity.Member;
 import com.example.mds.entity.Post;
 import com.example.mds.repository.ClubRepository;
 import com.example.mds.repository.PostRepository;
@@ -90,8 +92,14 @@ public class ClubController {
     public String detail(Model model, @PathVariable("id") Long id){
         Club club = this.clubService.getClub(id);
         long memberCount = clubService.getClubMemberCount(id);
+        List<Post> posts = club.getPosts();
+        List<ClubMember> members = club.getMembers();
+        Member admin = club.getAdmin();
         model.addAttribute("memberCount", memberCount);
         model.addAttribute("club",club);
+        model.addAttribute("posts",posts);
+        model.addAttribute("members",members);
+        model.addAttribute("admin",admin);
         return "clubDetail";
     }
 

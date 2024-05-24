@@ -75,16 +75,16 @@
             </div>
 
             <!--            게시물 수정 삭제 버튼-->
-            <div class="community-new">
+            <div class="user-edit">
                 <a th:href="@{|/community/modify/${post.id}|}"
                    sec:authorize="isAuthenticated()"
                    th:if="${post.author!=null and #authentication.getPrincipal().getUsername()==post.author.email}"
-                   th:text="수정" class="new-btn"></a>
+                   th:text="수정" class="new-btn" id="u-edit"></a>
 
                 <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${post.id}|}"
                    class="delete btn btn-sm btn-outline-secondary new-btn" sec:authorize="isAuthenticated()"
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.email}"
-                   th:text="삭제"></a>
+                   th:text="삭제" id="u-del"></a>
             </div>
 
         </div>

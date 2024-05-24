@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PostImageController {
     private final PostImageService postImageService;
 
-    @Operation(summary = "동아리 이미지 가져오기")
+    @Operation(summary = "게시물 이미지 가져오기")
     @Parameter(name = "fileName", description = "이미지 파일 이름", required = true, example = "example.jpg", in = ParameterIn.PATH)
     @GetMapping("/image/{fileName}")
     public ResponseEntity<Resource> getImage(@PathVariable("fileName") String fileName) {

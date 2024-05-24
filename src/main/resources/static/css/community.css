@@ -93,9 +93,9 @@ header .head-menu ul a#community {
 }
 
 .community-form-container
-  .community-comment
-  .community-comment-card
-  .user-icon {
+.community-comment
+.community-comment-card
+.user-icon {
   width: 50px;
   height: 50px;
   background-color: #d8d8d8;
@@ -103,21 +103,36 @@ header .head-menu ul a#community {
 }
 
 .community-form-container
-  .community-comment
-  .community-comment-card
-  .user-area {
+.community-comment
+.community-comment-card
+.user-area {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .community-form-container
-  .community-comment
-  .community-comment-card
-  .user-area
-  .user-name {
+.community-comment
+.community-comment-card
+.user-area
+.user-name {
   font-size: 20px;
   font-weight: 600;
+}
+
+.user-edit {
+  margin-left: auto;
+}
+
+#u-edit,
+#u-del,
+#u-write {
+  width: 90px;
+  height: 25px;
+  color: white;
+  background-color: #2c6af5;
+  border: 1px solid #2c6af5;
+  border-radius: 5px;
 }
 
 .community-form-container .community-comment .community-comment-title {
@@ -131,6 +146,23 @@ header .head-menu ul a#community {
   height: 900px;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.community-form-container .community-form-edit {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.community-form-container .community-form-edit #edit, #del {
+  width: 150px;
+  height: 30px;
+  color: white;
+  background-color: #2c6af5;
+  border: 1px solid #2c6af5;
+  border-radius: 5px;
 }
 
 .community-form-container .community-form-desc {
@@ -218,7 +250,6 @@ header .head-menu ul a#community {
 .community-content .community-card .community-img {
   height: 420px;
   background-color: #d8d8d8;
-  /*background-color: white;*/
   border-radius: 20px;
   transition: box-shadow 0.3s;
 }

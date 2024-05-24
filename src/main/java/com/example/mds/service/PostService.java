@@ -2,6 +2,7 @@ package com.example.mds.service;
 
 import com.example.mds.dto.club.request.ClubCreateRequest;
 import com.example.mds.dto.post.request.PostCreateRequest;
+import com.example.mds.dto.post.request.PostUpdateRequest;
 import com.example.mds.entity.*;
 import com.example.mds.handler.DataNotFoundException;
 import com.example.mds.repository.ClubRepository;
@@ -82,10 +83,33 @@ public class PostService {
         return postRepository.save(p);
     }
 
-    public void modify(Post post, String content){
-        post.setContent(content);
-        post.setModifyDate(LocalDateTime.now());
-        this.postRepository.save(post);
+//    public void modify(Post post, String content){
+//        post.setContent(content);
+//        post.setModifyDate(LocalDateTime.now());
+//        this.postRepository.save(post);
+//    }
+    public void modify(Post post, PostUpdateRequest request){
+        Club club = clubService.getClub(request.getClubId());
+        post.setContent(request.getContent());
+        post.setClub(club);
+        // 다른 필드들도 필요에 따라 업데이트
+
+        MultipartFile file = request.getImage();
+        if (file != null) { // 이미지가 제공되었는지 확인
+            PostImage postImage = post.getImage();
+            if (postImage == null) {
+                postImage = new PostImage();
+            }
+            postImage.setUploadFileName(file.getOriginalFilename());
+            postImage.setStoreFileName(postImageService.saveImage(file));
+            postImage.setPost(post);
+            postImageRepository.save(postImage);
+            post.setImage(postImage);
+        }
+
+        // 3. 변경된 내용 저장
+        postRepository.save(post);
+
     }
 
     public void delete(Post post){

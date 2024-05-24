@@ -78,8 +78,6 @@ public class PostController {
         this.postService.registerPost(postCreateRequest, member);
 //        this.postService.create(postCreateRequest.getContent(), member,postCreateRequest.getClubId());
 
-
-
         return "redirect:/community/all";
     }
 
@@ -92,6 +90,12 @@ public class PostController {
         // Member 엔티티를 이메일을 기반으로 데이터베이스에서 찾음
         Member member = memberService.getMember(email);
 
+        // 현재 사용자가 가입한 동아리 목록을 조회
+        List<Club> clubs = memberService.getClubsForMember(email);
+
+        // 조회된 동아리 목록을 모델에 추가하여 뷰로 전달
+        model.addAttribute("clubs", clubs);
+
         // 사용자의 이름을 모델에 추가
         model.addAttribute("name", member.getName());
 
@@ -100,6 +104,9 @@ public class PostController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "해당 게시물 수정 권한이 없습니다.");
         }
         postUpdateRequest.setContent(post.getContent());
+        postUpdateRequest.setClubId(post.getClub().getId());
+        model.addAttribute("name", member.getName());
+        model.addAttribute("post", post);
         return "communityModifyForm";
     }
 
@@ -115,7 +122,7 @@ public class PostController {
         if(!post.getAuthor().getEmail().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "해당 게시물 수정 권한이 없습니다.");
         }
-        this.postService.modify(post, postUpdateRequest.getContent());
+        this.postService.modify(post, postUpdateRequest);
         return String.format("redirect:/community/%s",id);
     }
 

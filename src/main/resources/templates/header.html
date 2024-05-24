@@ -6,7 +6,10 @@
         <ul class="head-content-menu">
           <li><a href="/html/basic.html">About</a></li>
           <li><a href="/html/basic.html">Contact</a></li>
-          <li><a th:href="@{/member/mypage}">My Page</a></li>
+          <li>
+            <a th:href="@{/member/mypage}" th:if="${#authorization.expression('isAuthenticated()')}">My Page</a>
+            <a th:href="@{/member/login}" th:unless="${#authorization.expression('isAuthenticated()')}">My Page</a>
+          </li>
         </ul>
         <ul class="head-content-account">
           <li><a class="signin-btn" sec:authorize="isAnonymous()"  th:href="@{/member/login}">SignIn</a></li>

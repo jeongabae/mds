@@ -9,36 +9,92 @@
 
 <div layout:fragment="content" class="community-content">
     <div class="community-form-container">
-        <form th:action="@{|/community/modify/${id}|}" th:object="${postUpdateRequest}" class="community-form" method="post">
+<!--        <form th:action="@{|/community/modify/${id}|}" th:object="${postUpdateRequest}" class="community-form" method="post">-->
+<!--            <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+<!--            <div class="community-form-user">-->
+<!--                <div class="user-icon"></div>-->
+<!--                <div class="user-name" th:text="${name}"></div>-->
+<!--                &lt;!&ndash;            <select name="club" class="user-club">&ndash;&gt;-->
+<!--                &lt;!&ndash;              <option value="">가입된 동아리 목록 선택</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;              <option value="club1">동아리1</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;              <option value="club2">동아리2</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </select>&ndash;&gt;-->
+<!--            </div>-->
+<!--            &lt;!&ndash;          <div class="community-form-image">&ndash;&gt;-->
+<!--            &lt;!&ndash;            <a href="#">&ndash;&gt;-->
+<!--            &lt;!&ndash;              <img src="/image/Camera.png" alt="" />&ndash;&gt;-->
+<!--            &lt;!&ndash;              <div>사진 등록</div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </a>&ndash;&gt;-->
+<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--            <textarea-->
+<!--                    th:field="*{content}"-->
+<!--                    placeholder="설명을 입력해주세요"-->
+<!--                    class="community-form-desc"-->
+<!--                    cols="30"-->
+<!--                    rows="10"-->
+<!--            ></textarea>-->
+<!--            <div class="community-form-btn-container">-->
+<!--                <input class="community-form-btn" type="submit" value="등록하기"/>-->
+<!--                &lt;!&ndash;            <a class="community-form-btn" href="#">등록하기</a>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </form>-->
+        <form th:action="@{|/community/modify/${post.id}|}" th:object="${postUpdateRequest}" class="community-form" method="post" enctype="multipart/form-data">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="community-form-user">
                 <div class="user-icon"></div>
-                <div class="user-name" th:text="${name}"></div>
-                <!--            <select name="club" class="user-club">-->
-                <!--              <option value="">가입된 동아리 목록 선택</option>-->
-                <!--              <option value="club1">동아리1</option>-->
-                <!--              <option value="club2">동아리2</option>-->
-                <!--            </select>-->
+                <div class="user-name" th:text="${#authentication.principal.name}">홍길동</div>
+                <select name="clubId" class="user-club" th:field="*{clubId}">
+                    <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.name}" th:selected="${club.id == post.club.id}"></option>
+                </select>
             </div>
-            <!--          <div class="community-form-image">-->
-            <!--            <a href="#">-->
-            <!--              <img src="/image/Camera.png" alt="" />-->
-            <!--              <div>사진 등록</div>-->
-            <!--            </a>-->
-            <!--          </div>-->
-            <textarea
-                    th:field="*{content}"
-                    placeholder="설명을 입력해주세요"
-                    class="community-form-desc"
-                    cols="30"
-                    rows="10"
-            ></textarea>
+            <div class="community-form-image">
+                <label for="imageUpload">
+                    <img th:if="${post.image != null}" th:src="@{|/post/image/${post.image.storeFileName}|}" alt="기존 이미지" id="imageClick" style="cursor: pointer;">
+<!--                    <img th:if="${post.image == null}" src="/image/Camera.png" alt="사진 등록" id="imageClick" style="cursor: pointer;">-->
+                </label>
+                <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;">
+                <div id="image_container"></div>
+            </div>
+            <textarea th:field="*{content}" placeholder="설명을 입력해주세요" class="community-form-desc" cols="30" rows="10" th:text="${post.content}"></textarea>
             <div class="community-form-btn-container">
-                <input class="community-form-btn" type="submit" value="등록하기"/>
-                <!--            <a class="community-form-btn" href="#">등록하기</a>-->
+                <input class="community-form-btn" type="submit" value="수정하기">
             </div>
         </form>
     </div>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    function setThumbnail(event) {
+        var reader = new FileReader();
 
+        reader.onload = function(event) {
+            var existingThumbnail = document.querySelector("div#image_container img");
+            if (existingThumbnail) {
+                existingThumbnail.remove();
+            }
+
+            var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            document.querySelector("div#image_container").appendChild(img);
+            document.getElementById('imageClick').style.display = 'none';
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    document.getElementById('image_container').addEventListener('click', function() {
+        document.getElementById('imageUpload').click();
+    });
+
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+        clearThumbnail();
+        setThumbnail(event);
+    });
+
+    function clearThumbnail() {
+        var container = document.getElementById('image_container');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+    }
+</script>
 </html>
