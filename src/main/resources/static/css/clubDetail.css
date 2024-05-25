@@ -125,13 +125,12 @@
   padding-top: 30px;
 }
 
-.content-detail .club-content
-.club-apply .club-form, .club-form:visited {
+.content-detail .club-content .club-apply .club-form,
+.club-form:visited {
   color: black;
 }
 
-.content-detail .club-content
-.club-apply .club-form:hover {
+.content-detail .club-content .club-apply .club-form:hover {
   color: #858585;
 }
 
@@ -361,9 +360,28 @@
 .club .detail-tab-content .content .write-area {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+.club .detail-tab-content .content .write-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: end;
   padding: 20px 0;
   gap: 20px;
+}
+
+.club .detail-tab-content .content .write-area label {
+  font-size: 20px;
+}
+
+.club .detail-tab-content .content .write-area .member-add-form {
+  padding: 10px 5px;
+  font-size: 20px;
 }
 
 .club .detail-tab-content .content .management-count {
@@ -466,11 +484,8 @@
   background-color: #a8c4ff;
 }
 
-.club
-.detail-tab-content
-.content
-.popup-wrap {
-  background-color: rgba(0,0,0,.3);
+.club .detail-tab-content .content .popup-wrap {
+  background-color: rgba(0, 0, 0, 0.3);
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -482,26 +497,17 @@
   padding: 15px;
 }
 
-.club
-.detail-tab-content
-.content
-.popup-wrap
-.popup {
+.club .detail-tab-content .content .popup-wrap .popup {
   width: 100%;
   max-width: 400px;
   height: 200px;
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3);
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
 }
 
-.club
-.detail-tab-content
-.content
-.popup-wrap
-.popup
-.popup-body {
+.club .detail-tab-content .content .popup-wrap .popup .popup-body {
   width: 100%;
   background-color: white;
 }
@@ -610,6 +616,7 @@ button {
   background-color: #a8c4ff;
   color: white;
 }
+
 
 /*타임리프하다가 전가배가 추가함*/
 .club-photo img {

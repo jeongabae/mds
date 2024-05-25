@@ -33,9 +33,21 @@
                     <td>Student ID</td>
                     <td><input type="number" th:field="*{studentId}"  id="st-id"/></td>
                 </tr>
+<!--                <tr>-->
+<!--                    <td>Major</td>-->
+<!--                    <td><input type="text" th:field="*{major}" id="major"/></td>-->
+<!--                </tr>-->
                 <tr>
                     <td>Major</td>
-                    <td><input type="text" th:field="*{major}" id="major"/></td>
+                    <td>
+                        <select name="major" id="major" th:field="*{major}">
+                            <option value="" hidden="hidden" selected="selected">전공을 선택해주세요.</option>
+
+                            <th:block th:each="majorOption : ${majors}">
+                                <option th:value="${majorOption}" th:text="${majorOption}"></option>
+                            </th:block>
+                        </select>
+                    </td>
                 </tr>
             </table>
             <div class="sub">

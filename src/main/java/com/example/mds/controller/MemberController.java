@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +40,9 @@ public class MemberController {
     private final MemberSecurityService memberSecurityService;
 
     @GetMapping("/signup")
-    public String signup(MemberCreateRequest memberCreateRequest) {
-            return "signup";
+    public String signup(Model model,MemberCreateRequest memberCreateRequest) {
+        model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+        return "signup";
     }
 
 
@@ -162,12 +164,26 @@ public class MemberController {
     }
 
     // 회원 탈퇴 처리
+//    @Operation(summary = "회원 탈퇴")
+//    @PostMapping("/withdraw")
+//    public String withdrawMember(Authentication authentication) {
+//        CustomUser userDetails = (CustomUser) authentication.getPrincipal();
+//        memberService.deleteMember(userDetails.getUsername());
+//        return "redirect:/member/logout"; // 로그아웃 페이지로 리다이렉트 또는 다른 페이지로 이동
+//    }
+//    @Operation(summary = "회원 탈퇴")
+//    @DeleteMapping("/withdraw")
+//    public String withdrawMember(Authentication authentication) {
+//        CustomUser userDetails = (CustomUser) authentication.getPrincipal();
+//        memberService.deleteMember(userDetails.getUsername());
+//        return "redirect:/member/logout"; // 로그아웃 페이지로 리다이렉트 또는 다른 페이지로 이동
+//    }
     @Operation(summary = "회원 탈퇴")
-    @PostMapping("/withdraw")
-    public String withdrawMember(Authentication authentication) {
+    @DeleteMapping("/withdraw")
+    public ResponseEntity<Void> withdrawMember(Authentication authentication) {
         CustomUser userDetails = (CustomUser) authentication.getPrincipal();
         memberService.deleteMember(userDetails.getUsername());
-        return "redirect:/member/logout"; // 로그아웃 페이지로 리다이렉트 또는 다른 페이지로 이동
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "동아리에 회원 가입시키기")
@@ -175,6 +191,7 @@ public class MemberController {
     public ResponseEntity<String> joinClub(@RequestParam("studentId") Long studentId, @RequestParam("clubId") Long clubId) {
         memberService.joinClub(studentId, clubId);
         return new ResponseEntity<>("Joined club successfully", HttpStatus.OK);
+//        return "redirect:/club/" + clubId;
     }
 
     @Operation(summary = "동아리에서 회원 탈퇴시키기")

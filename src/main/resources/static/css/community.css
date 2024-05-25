@@ -128,11 +128,17 @@ header .head-menu ul a#community {
 #u-del,
 #u-write {
   width: 90px;
-  height: 25px;
+  height: 30px;
   color: white;
   background-color: #2c6af5;
-  border: 1px solid #2c6af5;
+  border: none;
   border-radius: 5px;
+}
+
+#u-edit:hover,
+#u-del:hover,
+#u-write:hover {
+  background-color: #a8c4ff;
 }
 
 .community-form-container .community-comment .community-comment-title {
@@ -158,11 +164,16 @@ header .head-menu ul a#community {
 
 .community-form-container .community-form-edit #edit, #del {
   width: 150px;
-  height: 30px;
+  height: 40px;
   color: white;
   background-color: #2c6af5;
-  border: 1px solid #2c6af5;
+  border: none;
   border-radius: 5px;
+  font-size: 12pt;
+}
+
+.community-form-container .community-form-edit #edit:hover, #del:hover {
+  background-color: #a8c4ff;
 }
 
 .community-form-container .community-form-desc {
@@ -283,6 +294,7 @@ header .head-menu ul a#community {
   font-weight: 300;
 }
 
+
 /*타임리프하다가 전가배가 추가함*/
 .community-img img {
   width: 100%;
@@ -297,4 +309,15 @@ header .head-menu ul a#community {
   height: 900px;
   object-fit: cover;
   border-radius: 10px;
+}
+
+/* 댓글 등록 폼의 구조에 맞게 스타일 수정 */
+.community-form-container .community-comment .community-comment-card .user-comment {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.community-form-container .community-comment .community-comment-card .user-comment .user-edit {
+  margin-left: 10px; /* 조정 가능한 값 */
 }

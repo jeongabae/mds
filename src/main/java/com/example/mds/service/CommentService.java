@@ -40,4 +40,8 @@ public class CommentService {
         comment.setModifyDate(LocalDateTime.now());
         this.commentRepository.save(comment);
     }
+
+    public void deleteCommentById(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }

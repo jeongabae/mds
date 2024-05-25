@@ -5,9 +5,12 @@ import com.example.mds.entity.ClubMember;
 import com.example.mds.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ClubMemberRepository extends JpaRepository<ClubMember, Long> {
     long countByClubId(Long clubId);
     Optional<ClubMember> findByMemberAndClub(Member member, Club club);
+    List<ClubMember> findByMember(Member member);
+
 }

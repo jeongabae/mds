@@ -70,4 +70,14 @@ public class CommentController {
         this.commentService.modify(comment, commentUpdateRequest.getContent());
         return String.format("redirect:/community/%s", comment.getPost().getId());
     }
+
+
+    @DeleteMapping("/delete/{commentId}")
+    public void deleteComment(@PathVariable Long commentId,  Principal principal) {
+        Comment comment = this.commentService.getComment(commentId);
+        if (!comment.getAuthor().getEmail().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "해당 댓글을 수정할 권한이 없습니다.");
+        }
+        commentService.deleteCommentById(commentId);
+    }
 }

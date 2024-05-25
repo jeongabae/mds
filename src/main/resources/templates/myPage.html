@@ -33,9 +33,13 @@
             </div>
             <!--      <div id="del-info"><a th:href="@{/member/withdraw}">회원 탈퇴</a></div>-->
             <div id="del-info">
-                <form th:action="@{/member/withdraw}" method="post">
+<!--                <button type="button" onclick="withdrawMember()">회원 탈퇴</button>-->
+                <form id="withdrawForm">
                     <button type="submit">회원 탈퇴</button>
                 </form>
+<!--                <form th:action="@{/member/withdraw}" method="post">-->
+<!--                    <button type="submit">회원 탈퇴</button>-->
+<!--                </form>-->
             </div>
 
         </div>
@@ -65,4 +69,28 @@
     </div>
 
 </div>
+<script layout:fragment="script">
+    document.getElementById("withdrawForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        if (confirm("정말로 회원을 탈퇴하시겠습니까?")) {
+            fetch('/member/withdraw', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('회원 탈퇴 실패');
+                }
+                alert('회원 탈퇴가 완료되었습니다.');
+                window.location.href = '/member/logout'; // 회원 탈퇴 후 리다이렉션할 페이지
+            }).catch(error => {
+                console.error('회원 탈퇴 오류:', error);
+                alert('회원 탈퇴 중 오류가 발생했습니다.');
+            });
+        }
+    });
+</script>
 </html>

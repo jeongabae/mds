@@ -2,10 +2,7 @@ package com.example.mds.service;
 
 import com.example.mds.common.MemberRole;
 import com.example.mds.dto.member.request.MemberUpdateRequest;
-import com.example.mds.entity.Club;
-import com.example.mds.entity.ClubMember;
-import com.example.mds.entity.Member;
-import com.example.mds.entity.Post;
+import com.example.mds.entity.*;
 import com.example.mds.handler.DataNotFoundException;
 import com.example.mds.repository.*;
 import jakarta.transaction.Transactional;
@@ -83,12 +80,24 @@ public class MemberService {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Member not found with email: " +email));
 
+        // 회원이 가입한 동아리에서 탈퇴
+        List<ClubMember> clubMembers = clubMemberRepository.findByMember(member);
+        for (ClubMember clubMember : clubMembers) {
+            clubMemberRepository.delete(clubMember);
+        }
+
         // 회원이 작성한 게시물 삭제
         List<Post> posts = postRepository.findByAuthor(member);
         for (Post post : posts) {
             // 게시물에 달린 댓글 삭제
             commentRepository.deleteByPost(post);
             postRepository.delete(post);
+        }
+
+        // 회원이 작성한 댓글 삭제
+        List<Comment> comments = commentRepository.findByAuthor(member);
+        for (Comment comment : comments) {
+            commentRepository.delete(comment);
         }
 
         // 회원 삭제

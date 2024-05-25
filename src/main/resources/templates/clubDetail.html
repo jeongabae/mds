@@ -294,14 +294,33 @@
                         </div>
                     </div>
                     <div class="write-area">
-                        <a href="#" class="write-btn">구성원 추가하기</a>
+<!--                        <form th:action="@{/member/join}" method="post">-->
+<!--                            <label>추가할 구성원의 학번 : </label>-->
+<!--                            <input class="member-add-form" type="text" name="studentId" />-->
+<!--                            <input type="hidden" name="clubId" th:value="${club.id}" />-->
+<!--                            <button type="submit" class="write-btn">구성원 추가하기</button>-->
+<!--                        </form>-->
+                        <form id="joinForm" th:action="@{/member/join}" method="post">
+                            <label>추가할 구성원의 학번 : </label>
+                            <input class="member-add-form" type="text" id="studentIdInput" name="studentId" />
+                            <input type="hidden" name="clubId" th:value="${club.id}" />
+                            <button type="button" class="write-btn" onclick="confirmSubmission()">구성원 추가하기</button>
+                        </form>
+<!--                        <label>추가할 구성원의 학번 : </label>-->
+<!--                        <input class="member-add-form" type="text" />-->
+<!--                        <a href="#" class="write-btn">구성원 추가하기</a>-->
                     </div>
+<!--                    <div class="write-area">-->
+<!--                        <a href="#" class="write-btn">구성원 추가하기</a>-->
+<!--                    </div>-->
                 </div>
                 <!-- 관리자만 위의 내용이 보이도록 -->
             </div>
         </div>
     </div>
 </div>
+
+<!--백엔드하다가 스크립트 추가-->
 <script layout:fragment="script">
     const tabItem = document.querySelectorAll('.club .detail-tab-menu .tab');
     const tabContent = document.querySelectorAll(
@@ -376,6 +395,36 @@
             console.error('Error:', error);
             alert("An error occurred");
         });
+    }
+
+    function confirmSubmission() {
+        const studentIdInput = document.getElementById('studentIdInput');
+        const studentId = studentIdInput.value;
+        const message = studentId + "을 구성원으로 추가하시겠습니까?";
+
+        if (confirm(message)) {
+            const form = document.getElementById('joinForm');
+
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    alert('성공적으로 추가되었습니다.');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('회원 가입에 실패했습니다.');
+                });
+        }
     }
 </script>
 </html>
