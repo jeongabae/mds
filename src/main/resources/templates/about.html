@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<th:block layout:fragment="cssstyle">
+    <link rel="stylesheet" href="/css/basic.css"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/about.css"/>
+</th:block>
+<div layout:fragment="content" class="content">
+    <h1 class="about-title">About</h1>
+    <h1 class="about-team-title">
+        <span style="color: blue">TEAM</span> NO.1
+    </h1>
+    <div class="about-area">
+        <div class="about-description">
+          <span>
+            우리 팀은 항상 최고가 되자는 의미에서 NO.1으로 팀 명을 짓게
+            되었습니다.<br/><br/>
+            우리 NO.1팀에서 진행한 프로젝트 '맛동산'은 교내 동아리의 홍보, 관리,
+            알림 등의 커뮤니티를 확인할 수 있는 동아리 관리 웹서비스이며 ‘맛있는
+            동아리 산책’의 줄임말로 서비스 이름을 표현하였습니다.
+          </span>
+        </div>
+        <div class="about-logo">
+            <img src="/image/logo.png"/>
+        </div>
+    </div>
+</div>
+</html>

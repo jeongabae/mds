@@ -4,8 +4,8 @@
       <a id="logo" href="/"><img src="/image/logo.png" /></a>
       <div class="head-content-container">
         <ul class="head-content-menu">
-          <li><a href="/html/basic.html">About</a></li>
-          <li><a href="/html/basic.html">Contact</a></li>
+          <li><a th:href="@{/about}">About</a></li>
+          <li><a th:href="@{/contact}">Contact</a></li>
           <li>
             <a th:href="@{/member/mypage}" th:if="${#authorization.expression('isAuthenticated()')}">My Page</a>
             <a th:href="@{/member/login}" th:unless="${#authorization.expression('isAuthenticated()')}">My Page</a>

@@ -1,0 +1,42 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content .about-title {
+  padding: 100px 0 50px 0;
+  font-size: 70px;
+}
+
+.content .about-team-title {
+  font-size: 30px;
+  padding: 40px 0;
+}
+
+.content .about-area {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 50px;
+  padding: 50px 0 150px 0;
+}
+
+.content .about-area .about-description {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.content .about-area .about-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.content .about-area .about-logo img {
+  width: 200px;
+}

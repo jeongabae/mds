@@ -1,0 +1,21 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content .contact-title {
+  padding: 100px 0 50px 0;
+  font-size: 70px;
+}
+
+.content .contact-description {
+  font-size: 30px;
+  padding: 40px 0;
+}
+
+.content .contact-email {
+  font-size: 26px;
+  padding: 20px 0 100px 0;
+}
