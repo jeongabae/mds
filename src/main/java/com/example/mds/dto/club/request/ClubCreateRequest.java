@@ -22,5 +22,7 @@ public class ClubCreateRequest {
 
     private String category;
 
+    private String applicationFormUrl;
+
     private MultipartFile image;
 }

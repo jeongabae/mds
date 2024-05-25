@@ -60,7 +60,13 @@
                     <img src="/image/Leadership.png" th:if="${club.admin == null}" th:text="' 동아리 이메일 : '"/>
                 </div>
                 <div class="club-apply">
-                    <img src="/image/Form.png"/> 지원하기 : 폼 링크
+                    <img src="/image/Form.png" th:if="${club.applicationFormUrl == null}" th:text="' 지원하기 : 아직 지원폼이 등록되지않았습니다.'"/>
+                    <img src="/image/Form.png" th:if="${club.applicationFormUrl != null}" th:text="' 지원하기 : '"/>
+                    <a th:if="${club.applicationFormUrl != null}"
+                            class="club-form"
+                            th:href="${club.applicationFormUrl}"
+                            target="_blank"
+                    >Google Form</a>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +41,8 @@ public class Club {
 
     @Column(nullable = false)
     private String category;
+
+    private String applicationFormUrl;
 
     @OneToOne(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

@@ -47,6 +47,7 @@ public class ClubService {
         club.setCreateDate(LocalDateTime.now());
         club.setModifyDate(LocalDateTime.now());
         club.setCategory(request.getCategory());
+        club.setApplicationFormUrl(request.getApplicationFormUrl());
 
         MultipartFile file = request.getImage();
         if (request.getImage() != null) { // 이미지가 제공되었는지 확인
