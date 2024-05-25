@@ -41,6 +41,15 @@ public class PostService {
         return this.postRepository.findAll(pageable);
     }
 
+
+
+    public Page<Post> getPostsByClubCategory(String category, int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 12, Sort.by(sorts));
+        return postRepository.findByClubCategory(category, pageable);
+    }
+
     public Post getPost(Long id){
         Optional<Post> post = this.postRepository.findById(id);
         if(post.isPresent()){

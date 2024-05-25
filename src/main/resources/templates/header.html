@@ -41,22 +41,16 @@
           </ul>
         </li>
         <li>
-          <a th:href="@{/community/all}">커뮤니티</a>
+          <a th:href="@{/community/category/all}">커뮤니티</a>
           <ul class="head-menu-dropdown">
-            <li onclick="window.location.href='/html/communityAll.html'">
-              All
-            </li>
-            <li
-                    onclick="window.location.href='/html/communityPerformingArts.html'"
-            >
-              공연예술분과
-            </li>
-            <li>사회활동분과</li>
-            <li>생활체육분과</li>
-            <li>예술전시분과</li>
-            <li>음악연주분과</li>
-            <li>종교활동분과</li>
-            <li>학술연구분과</li>
+            <li><a th:href="@{/community/category/all}">All</a></li>
+            <li><a th:href="@{/community/category/공연예술분과}">공연예술분과</a></li>
+            <li><a th:href="@{/community/category/사회활동분과}">사회활동분과</a></li>
+            <li><a th:href="@{/community/category/생활체육분과}">생활체육분과</a></li>
+            <li><a th:href="@{/community/category/예술전시분과}">예술전시분과</a></li>
+            <li><a th:href="@{/community/category/음악연주분과}">음악연주분과</a></li>
+            <li><a th:href="@{/community/category/종교활동분과}">종교활동분과</a></li>
+            <li><a th:href="@{/community/category/학술연구분과}">학술연구분과</a></li>
           </ul>
         </li>
         <li><a href="/html/noticeBasic.html">공지사항</a></li>

@@ -43,6 +43,27 @@ public class PostController {
 //        model.addAttribute("postList", postList);
         return "communityAll";
     }
+    @GetMapping("/category/{category}")
+    public String getPosts(@PathVariable(name = "category", required = false) String category,
+                           @RequestParam(value = "page", defaultValue = "0") int page,
+                           Model model) {
+        Page<Post> paging;
+        if ("all".equals(category)) {
+            paging = this.postService.getPostList(page);
+        } else {
+            paging = this.postService.getPostsByClubCategory(category, page);
+        }
+        model.addAttribute("paging", paging);
+        return "communityAll";
+    }
+//    @GetMapping("/category/{category}")
+//    public String getPostsByCategory(@PathVariable("category") String category,
+//                                     @RequestParam(value="page", defaultValue = "0") int page,Model model) {
+//        Page<Post> paging = this.postService.getPostsByClubCategory(category,page);
+//        model.addAttribute("paging", paging);
+//        return "communityAll";
+//    }
+
 
     @GetMapping("/{id}")
     public String detail(Model model, @PathVariable("id") Long id, CommentCreateRequest commentCreateRequest){

@@ -9,8 +9,19 @@
 <div layout:fragment="content" class="community-content">
     <div class="community-container">
         <div class="community-type-name">
-            <span class="title">ALL</span>
-            <span class="subtitle">동아리 전체</span>
+<!--            <span class="title">ALL</span>-->
+<!--            <span class="subtitle">동아리 전체</span>-->
+
+            <span class="title" th:text="${category != null ?
+    (category == '공연예술분과' ? 'Performing Arts' :
+    (category == '사회활동분과' ? 'Social Activity' :
+    (category == '생활체육분과' ? 'Life Sports' :
+    (category == '예술전시분과' ? 'Art Exhibition' :
+    (category == '음악연주분과' ? 'Music Performance' :
+    (category == '종교활동분과' ? 'Religious Activities' :
+    (category == '학술연구분과' ? 'Academic Research' :
+    (category == 'all' ? 'ALL':'')))))))) : 'ALL'}"></span>
+            <span class="subtitle" th:text="${category == 'all' ? '동아리 전체' : category}"></span>
         </div>
         <div class="community-new">
             <a th:href="@{/community/create}" class="new-btn">글 작성</a>
@@ -39,27 +50,6 @@
                 </a>
             </div>
         </div>
-        <!-- 페이징처리 시작 -->
-        <!--          <div th:if="${!paging.isEmpty()}">-->
-        <!--              <ul class="pagination justify-content-center">-->
-        <!--                  <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-        <!--                      <a class="page-link" th:href="@{|?page=${paging.number-1}|}">-->
-        <!--                          <span>이전</span>-->
-        <!--                      </a>-->
-        <!--                  </li>-->
-        <!--                  <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
-        <!--                      th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
-        <!--                      th:classappend="${page == paging.number} ? 'active'" class="page-item">-->
-        <!--                      <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
-        <!--                  </li>-->
-        <!--                  <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-        <!--                      <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
-        <!--                          <span>다음</span>-->
-        <!--                      </a>-->
-        <!--                  </li>-->
-        <!--              </ul>-->
-        <!--          </div>-->
-        <!-- 페이징처리 끝 -->
         <!-- 페이징처리 시작 -->
         <div th:if="${!paging.isEmpty()}">
             <ul class="pagination justify-content-center">
