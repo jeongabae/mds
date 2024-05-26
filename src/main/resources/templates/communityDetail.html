@@ -38,14 +38,14 @@
                 </div>
 
                 <div class="">
-                    <!--                    댓글 수정 버튼-->
-                    <a th:href="@{|/commment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                       sec:authorize="isAuthenticated()"
-                       th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
-                       th:text="수정"></a>
+<!--                    &lt;!&ndash;                    댓글 수정 버튼&ndash;&gt;-->
+<!--                    <a th:href="@{|/commment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"-->
+<!--                       sec:authorize="isAuthenticated()"-->
+<!--                       th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"-->
+<!--                       th:text="수정"></a>-->
                     <!--                    뎃글 삭제 버튼-->
                     <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}"
-                       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                       class="deletecomment btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                        th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.email}"
                        th:text="삭제"></a>
                 </div>
@@ -101,33 +101,15 @@
             };
         });
     });
-    // const delete_elements = document.getElementsByClassName("delete");
-    // Array.from(delete_elements).forEach(function (element) {
-    //     element.addEventListener('click', function (event) {
-    //         event.preventDefault(); // 기본 동작 중단
-    //
-    //         if (confirm("정말로 삭제하시겠습니까?")) {
-    //             const uri = this.getAttribute('data-uri');
-    //             fetch(uri, {
-    //                 method: 'DELETE'
-    //             })
-    //                 .then(response => {
-    //                     if (response.ok) {
-    //                         // 삭제가 성공적으로 이루어졌을 때 처리할 로직 추가
-    //                         console.log('댓글이 삭제되었습니다.');
-    //                         // 페이지 새로고침 또는 필요한 작업 수행
-    //                         window.location.reload();
-    //                     } else {
-    //                         // 오류가 발생했을 때 처리할 로직 추가
-    //                         console.error('댓글 삭제 중 오류가 발생했습니다.');
-    //                     }
-    //                 })
-    //                 .catch(error => {
-    //                     console.error('댓글 삭제 중 오류가 발생했습니다.', error);
-    //                 });
-    //         }
-    //     });
-    // });
+
+    const delete_comment_elements = document.getElementsByClassName("deletecomment");
+    Array.from(delete_comment_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
 
     function toggleEditForm(commentId) {
         const editForm = document.getElementById('edit-comment-form-' + commentId);

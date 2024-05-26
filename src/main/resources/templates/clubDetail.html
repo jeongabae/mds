@@ -300,25 +300,13 @@
                         </div>
                     </div>
                     <div class="write-area">
-<!--                        <form th:action="@{/member/join}" method="post">-->
-<!--                            <label>추가할 구성원의 학번 : </label>-->
-<!--                            <input class="member-add-form" type="text" name="studentId" />-->
-<!--                            <input type="hidden" name="clubId" th:value="${club.id}" />-->
-<!--                            <button type="submit" class="write-btn">구성원 추가하기</button>-->
-<!--                        </form>-->
                         <form id="joinForm" th:action="@{/member/join}" method="post">
                             <label>추가할 구성원의 학번 : </label>
                             <input class="member-add-form" type="text" id="studentIdInput" name="studentId" />
                             <input type="hidden" name="clubId" th:value="${club.id}" />
                             <button type="button" class="write-btn" onclick="confirmSubmission()">구성원 추가하기</button>
                         </form>
-<!--                        <label>추가할 구성원의 학번 : </label>-->
-<!--                        <input class="member-add-form" type="text" />-->
-<!--                        <a href="#" class="write-btn">구성원 추가하기</a>-->
                     </div>
-<!--                    <div class="write-area">-->
-<!--                        <a href="#" class="write-btn">구성원 추가하기</a>-->
-<!--                    </div>-->
                 </div>
                 <!-- 관리자만 위의 내용이 보이도록 -->
             </div>
