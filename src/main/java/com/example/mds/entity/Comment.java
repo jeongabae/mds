@@ -19,24 +19,19 @@ import lombok.Setter;
 public class Comment{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //id
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String content; //댓글 내용
 
-    private LocalDateTime createDate;
+    private LocalDateTime createDate; //댓글 생성일자
 
-    private LocalDateTime modifyDate;
-
-    @ManyToOne
-    private Post post;
+    private LocalDateTime modifyDate; //댓글 수정일자
 
     @ManyToOne
-    private Member author;
-//    @ManyToOne
-//    private SiteUser author;
+    private Post post; //게시글
 
+    @ManyToOne
+    private Member author; //댓글 작성자
 
-//    @ManyToMany
-//    Set<SiteUser> voter;
 }

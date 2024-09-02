@@ -12,7 +12,6 @@ header .head-menu ul a#community {
 }
 
 .community-form-container {
-  width: 900px;
   padding: 100px;
 }
 
@@ -84,6 +83,7 @@ header .head-menu ul a#community {
 
 .community-form-container .community-comment .community-comment-card {
   border: 1px solid black;
+  width: 100%;
   padding: 30px;
   border-radius: 20px;
   display: flex;
@@ -109,6 +109,7 @@ header .head-menu ul a#community {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .community-form-container
@@ -179,6 +180,7 @@ header .head-menu ul a#community {
 .community-form-container .community-form-desc {
   border: none;
   font-size: 20px;
+  width: 100%;
 }
 
 .community-form-container .community-form-btn-container {
@@ -228,8 +230,8 @@ header .head-menu ul a#community {
 .community-content .community-clubs {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0 20px;
-  padding: 0 60px;
+  gap: 40px;
+  padding: 60px;
 }
 
 .community-content .community-type-name {
@@ -256,13 +258,14 @@ header .head-menu ul a#community {
   text-decoration: none;
   color: black;
   padding: 40px;
+  border-radius: 20px;
+  transition: box-shadow 0.3s;
 }
 
 .community-content .community-card .community-img {
   height: 420px;
-  background-color: #d8d8d8;
-  border-radius: 20px;
-  transition: box-shadow 0.3s;
+  background-color: white;
+  box-sizing: content-box;
 }
 
 .community-card .community-user {
@@ -280,8 +283,9 @@ header .head-menu ul a#community {
   border-radius: 100px;
 }
 
-.community-content .community-card:hover .community-img {
+.community-content .community-card:hover {
   box-shadow: 0px 0px 10px #000000cc;
+
 }
 
 .community-content .community-card .community-title {
@@ -320,4 +324,22 @@ header .head-menu ul a#community {
 
 .community-form-container .community-comment .community-comment-card .user-comment .user-edit {
   margin-left: 10px; /* 조정 가능한 값 */
+}
+
+.pagination-area {
+    padding: 20px 0;
+}
+
+.user-icon img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  object-fit: contain;
+}
+
+.community-user-icon img{
+  width: 100%;
+  height: 100%;
+  background-color: #d8d8d8;
+  border-radius: 100px;
 }

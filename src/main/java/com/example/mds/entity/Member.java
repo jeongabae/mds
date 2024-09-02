@@ -15,27 +15,27 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //id
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email; //이메일
 
     @Column(nullable = false)
-    private String name;
+    private String name; //이름
 
     @Column(nullable = false)
-    private String password;
+    private String password; //비밀번호(암호화됩니다.)
 
     @Column(nullable = false, unique = true)
-    private Long studentId;
+    private Long studentId; //학번
 
     @Column(nullable = false)
-    private String major;
+    private String major; //전공
 
     @Enumerated(EnumType.STRING)
-    private MemberRole role;
+    private MemberRole role; //관리자, 일반 유저 가능
 
     @OneToMany(mappedBy = "member")
     @JsonIgnore
-    private List<ClubMember> clubs = new ArrayList<>();
+    private List<ClubMember> clubs = new ArrayList<>(); //가입한 동아리
 }

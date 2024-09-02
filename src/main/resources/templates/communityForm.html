@@ -12,11 +12,18 @@
         <form th:action="@{/community/create}" th:object="${postCreateRequest}" class="community-form" method="post" enctype="multipart/form-data">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="community-form-user">
-                <div class="user-icon"></div>
+                <div class="user-icon"><img src="/image/basicprofile.png"/></div>
                 <div class="user-name" th:text="${#authentication.principal.name}">홍길동</div>
                 <select name="clubId" class="user-club" th:field="*{clubId}">
-                    <option value="">가입된 동아리 목록 선택</option>
+                    <option value="" th:text="${memberRole == 'ROLE_USER' ? '가입된 동아리 목록 선택' : '관리하는 동아리 선택'}">가입된 동아리 목록 선택</option>
                     <!-- 사용자가 가입한 동아리 목록을 반복하면서 옵션을 생성합니다 -->
+                    <th:block th:if="${clubs.isEmpty()}">
+                        <!-- clubs가 비어있는 경우에만 alert를 표시하고 페이지를 이동합니다. -->
+                        <script>
+                            alert("가입된 동아리가 없습니다. 동아리에 가입해주세요.");
+                            window.location.href = "/community/all";
+                        </script>
+                    </th:block>
                     <th:block th:each="club : ${clubs}">
                         <option th:value="${club.id}" th:text="${club.name}"></option>
                     </th:block>
@@ -27,7 +34,6 @@
                     <img src="/image/Camera.png" alt="사진 등록" id="imageClick" style="cursor: pointer;"/>
                 </label>
                 <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;"  onchange="setThumbnail(event);"/>
-<!--                <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;" />-->
                 <div id="image_container"></div>
             </div>
             <textarea
@@ -39,15 +45,11 @@
             ></textarea>
             <div class="community-form-btn-container">
                 <input class="community-form-btn" type="submit" value="등록하기"/>
-                <!--            <a class="community-form-btn" href="#">등록하기</a>-->
             </div>
         </form>
     </div>
 </div>
 <script layout:fragment="script" type='text/javascript'>
-    // document.getElementById('imageClick').addEventListener('click', function() {
-    //     document.getElementById('imageUpload').click();
-    // });
     function setThumbnail(event) {
         var reader = new FileReader();
 
@@ -81,6 +83,7 @@
         clearThumbnail(); // 기존 썸네일 삭제
         setThumbnail(event);
     });
+
 
     // 기존 썸네일을 삭제하는 함수
     function clearThumbnail() {

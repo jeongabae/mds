@@ -94,6 +94,13 @@ h1 {
   text-decoration-line: underline;
 }
 
+#del-info #withdrawForm > button {
+    padding: 20px 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2c6af5;
+}
+
 #del-info a:link, a:visited {
   color: black;
 }

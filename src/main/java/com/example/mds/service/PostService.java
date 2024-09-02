@@ -59,16 +59,6 @@ public class PostService {
         }
     }
 
-//    public void create(String content, Member author, Long clubId){
-//        Club club = clubService.getClub(clubId);
-//        Post p = new Post();
-//        p.setContent(content);
-//        p.setCreateDate(LocalDateTime.now());
-//        p.setAuthor(author);
-//        p.setClub(club);
-//        this.postRepository.save(p);
-//    }
-
     @Transactional
     public Post registerPost(PostCreateRequest request, Member author) {
         Club club = clubService.getClub(request.getClubId());

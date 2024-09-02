@@ -9,9 +9,6 @@
 <div layout:fragment="content" class="community-content">
     <div class="community-container">
         <div class="community-type-name">
-<!--            <span class="title">ALL</span>-->
-<!--            <span class="subtitle">동아리 전체</span>-->
-
             <span class="title" th:text="${category != null ?
     (category == '공연예술분과' ? 'Performing Arts' :
     (category == '사회활동분과' ? 'Social Activity' :
@@ -25,11 +22,9 @@
         </div>
         <div class="community-new">
             <a th:href="@{/community/create}" class="new-btn">글 작성</a>
-            <!--          <a href="/html/communityForm.html" class="new-btn">글 작성</a>-->
         </div>
         <div class="community-clubs">
             <div th:each="post, loop: ${paging}">
-                <!--            <div th:each="post : ${postList}">-->
 <!--                 게시물(card)을 클릭하면 해당 게시물의 세부 내용을 보여주는 페이지로 이동 -->
                 <a th:href="@{|/community/${post.id}|}" class="community-card">
                     <div class="community-img">
@@ -37,21 +32,18 @@
              alt=${post.image.getStoreFileName() + ' 이미지'}">
                     </div>
                     <div class="community-user">
-                        <div class="community-user-icon"></div>
-                        <!--                <div class="community-title" th:text="${post.author}">작성자1</div>-->
-                        <!--                <div class="community-club" th:text="${post.club}">#동아리1</div>-->
+                        <div class="community-user-icon"><img src="/image/basicprofile.png"/></div>
                         <div th:if="${post.author != null}"
                              th:text="${post.author.name}" class="community-title"></div>
-                        <!--                <div class="community-title" >작성자1</div>-->
                         <div class="community-club" th:text="'#' +${post.club.name}">#동아리1</div>
                     </div>
                     <!-- 게시물의 내용을 표시하는 부분 -->
-                    <div class="community-desc" th:text="${post.content}">설명</div>
+                    <div class="community-desc" th:text="${post.content}" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; text-overflow: ellipsis;">설명</div>
                 </a>
             </div>
         </div>
         <!-- 페이징처리 시작 -->
-        <div th:if="${!paging.isEmpty()}">
+        <div class="pagination-area" th:if="${!paging.isEmpty()}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
                     <a class="page-link" th:if="${paging.hasPrevious()}" th:href="@{|?page=${paging.number - 1}|}">

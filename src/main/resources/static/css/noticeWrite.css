@@ -38,24 +38,26 @@ table {
   font-size: 15pt;
   text-align: right;
 }
-
+/*
 #top-line, #bottom-line {
   width: 1200px;
   border: 1.5px solid black;
 }
-
+*/
 #detail {
   width: 1200px;
   height: 600px;
   display: inline-block;
   text-align: left;
   padding-top: 10px;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 }
 
 textarea {
   border: none;
-  width: 500px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   padding-left: 10px;
   resize: none;

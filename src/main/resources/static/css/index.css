@@ -100,8 +100,8 @@
 .content .content-clubs {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 0px 20px;
-  padding: 0 40px;
+  gap: 50px;
+  padding: 50px 200px;
 }
 
 .content .club-card {
@@ -110,17 +110,19 @@
   cursor: pointer;
   text-decoration: none;
   color: black;
-  padding: 40px;
-}
-
-.content .club-card .club-img {
-  height: 200px;
-  background-color: white; /*전가배가 수정*/
+  padding: 10px;
   border-radius: 20px;
   transition: box-shadow 0.3s;
 }
 
-.content .club-card:hover .club-img {
+.content .club-card .club-img {
+  height: 200px;
+  box-sizing: content-box;
+  background-color: white; /*전가배가 수정*/
+  padding: 30px 0;
+}
+
+.content .club-card:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 

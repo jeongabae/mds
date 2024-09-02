@@ -119,6 +119,10 @@ public class MemberService {
         clubMemberRepository.save(clubMember);
     }
 
+    public boolean isMemberAlreadyJoined(Long studentId, Long clubId) {
+        return clubMemberRepository.existsByMember_StudentIdAndClub_Id(studentId, clubId);
+    }
+
     @Transactional
     public void leaveClub(Long studentId, Long clubId) {
         Member member = memberRepository.findByStudentId(studentId)

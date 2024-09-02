@@ -9,48 +9,19 @@
 
 <div layout:fragment="content" class="community-content">
     <div class="community-form-container">
-<!--        <form th:action="@{|/community/modify/${id}|}" th:object="${postUpdateRequest}" class="community-form" method="post">-->
-<!--            <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
-<!--            <div class="community-form-user">-->
-<!--                <div class="user-icon"></div>-->
-<!--                <div class="user-name" th:text="${name}"></div>-->
-<!--                &lt;!&ndash;            <select name="club" class="user-club">&ndash;&gt;-->
-<!--                &lt;!&ndash;              <option value="">가입된 동아리 목록 선택</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;              <option value="club1">동아리1</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;              <option value="club2">동아리2</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;            </select>&ndash;&gt;-->
-<!--            </div>-->
-<!--            &lt;!&ndash;          <div class="community-form-image">&ndash;&gt;-->
-<!--            &lt;!&ndash;            <a href="#">&ndash;&gt;-->
-<!--            &lt;!&ndash;              <img src="/image/Camera.png" alt="" />&ndash;&gt;-->
-<!--            &lt;!&ndash;              <div>사진 등록</div>&ndash;&gt;-->
-<!--            &lt;!&ndash;            </a>&ndash;&gt;-->
-<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
-<!--            <textarea-->
-<!--                    th:field="*{content}"-->
-<!--                    placeholder="설명을 입력해주세요"-->
-<!--                    class="community-form-desc"-->
-<!--                    cols="30"-->
-<!--                    rows="10"-->
-<!--            ></textarea>-->
-<!--            <div class="community-form-btn-container">-->
-<!--                <input class="community-form-btn" type="submit" value="등록하기"/>-->
-<!--                &lt;!&ndash;            <a class="community-form-btn" href="#">등록하기</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </form>-->
         <form th:action="@{|/community/modify/${post.id}|}" th:object="${postUpdateRequest}" class="community-form" method="post" enctype="multipart/form-data">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="community-form-user">
-                <div class="user-icon"></div>
+                <div class="user-icon"><img src="/image/basicprofile.png"/></div>
                 <div class="user-name" th:text="${#authentication.principal.name}">홍길동</div>
                 <select name="clubId" class="user-club" th:field="*{clubId}">
+                    <option value="" th:text="${memberRole == 'ROLE_USER' ? '가입된 동아리 목록 선택' : '관리하는 동아리 선택'}">가입된 동아리 목록 선택</option>
                     <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.name}" th:selected="${club.id == post.club.id}"></option>
                 </select>
             </div>
             <div class="community-form-image">
                 <label for="imageUpload">
                     <img th:if="${post.image != null}" th:src="@{|/post/image/${post.image.storeFileName}|}" alt="기존 이미지" id="imageClick" style="cursor: pointer;">
-<!--                    <img th:if="${post.image == null}" src="/image/Camera.png" alt="사진 등록" id="imageClick" style="cursor: pointer;">-->
                 </label>
                 <input type="file" id="imageUpload" th:field="*{image}" accept="image/*" style="display: none;">
                 <div id="image_container"></div>

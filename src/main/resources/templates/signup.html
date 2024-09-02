@@ -15,7 +15,6 @@
                 <tr>
                     <td id="label">Email</td>
                     <td><input type="email" th:field="*{email}" id="email"/></td>
-                    <td><input type="button" id="dup" value="중복 체크"/></td>
                 </tr>
                 <tr>
                     <td>Name</td>
@@ -41,7 +40,7 @@
                     <td>Major</td>
                     <td>
                         <select name="major" id="major" th:field="*{major}">
-                            <option value="" hidden="hidden" selected="selected">전공을 선택해주세요.</option>
+                            <option value=""  selected="selected">전공을 선택해주세요.</option>
 
                             <th:block th:each="majorOption : ${majors}">
                                 <option th:value="${majorOption}" th:text="${majorOption}"></option>

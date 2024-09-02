@@ -10,7 +10,10 @@
 }
 
 .content-container {
-  width: 1920px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1920px;
 }
 
 h1 {
@@ -73,8 +76,24 @@ td {
   font-size: 13pt;
   background-color: #2c6af5;
   color: white;
-  position: absolute;
-  right: 250px;
   border: 1px solid #2c6af5;
   border-radius: 5px;
+}
+
+.notice-new {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    width: 1200px;
+    padding: 30px 0;
+}
+
+.notice-new a {
+    padding: 18px 44px;
+    background-color: #2c6af5;
+    color: white !important;
+    border-radius: 5px;
+    font-size: 20px;
+    text-decoration: none;
 }

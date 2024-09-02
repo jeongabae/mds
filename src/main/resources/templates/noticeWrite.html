@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <th:block layout:fragment="cssstyle">
     <link rel="stylesheet" href="/css/basic.css"/>
     <link rel="stylesheet" href="/css/noticeWrite.css"/>
@@ -7,33 +7,30 @@
 </th:block>
 <div layout:fragment="content" class="content">
     <div class="content-container">
-        <table>
-            <tr>
-                <td id="info-title">
-                    <input type="text" placeholder="공지사항 제목" id="info-title"/>
-                </td>
-            </tr>
-            <tr>
-                <td id="info-name">동아리 1</td>
-                <td id="info-date">2024-04-12</td>
-            </tr>
-        </table>
-        <hr id="top-line"/>
-        <div id="detail">
-            <tr>
-                <td>
-              <textarea
-                      placeholder="공지사항 내용"
-                      name="detail"
-                      id="detail"
-              ></textarea>
-                </td>
-            </tr>
-        </div>
-        <hr id="bottom-line"/>
-        <div class="submit">
-            <input type="submit" value="등록하기" id="submit"/>
-        </div>
+        <form action="/notice/create" method="post">
+            <table>
+                <tr>
+                    <td id="info-title">
+                        <input type="text" placeholder="공지사항 제목" name="title"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="info-name" th:text="${clubs.get(0).getName()}">동아리 1</td>
+                </tr>
+                <!-- 현재 사용자가 관리하는 동아리의 ID를 hidden input으로 추가 -->
+                <input type="hidden" name="clubId" th:value="${clubs.get(0).getId()}"/>
+            </table>
+            <div id="detail">
+                <tr>
+                    <td>
+                        <textarea placeholder="공지사항 내용" name="content"></textarea>
+                    </td>
+                </tr>
+            </div>
+            <div class="submit">
+                <input type="submit" value="등록하기" id="submit"/>
+            </div>
+        </form>
     </div>
 </div>
 </html>

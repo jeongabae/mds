@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <th:block layout:fragment="cssstyle">
     <link rel="stylesheet" href="/css/basic.css"/>
     <link rel="stylesheet" href="/css/noticeBasic.css"/>
@@ -8,67 +8,23 @@
 <div layout:fragment="content" class="content">
     <div class="content-container">
         <h1>공지사항</h1>
+        <div class="notice-new">
+            <a th:href="@{/notice/create}">글 작성</a>
+        </div>
         <table>
-            <tr onclick='location.href="/html/noticeDetail.html"'>
-                <td class="name-club">동아리 1</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 2</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 3</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 4</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 1</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 7</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 8</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 4</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 3</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
-            </tr>
-            <tr>
-                <td class="name-club">동아리 1</td>
-                <td class="title-club">공지사항 제목</td>
-                <td class="date-club">2024-04-12</td>
+            <tr th:each="notice : ${notices}" th:onclick="|location.href='/notice/' + ${notice.id} + ''|">
+                <td class="club-name" th:text="${notice.club.name}">동아리 1</td>
+                <td class="notice-title" th:text="${notice.title}">공지사항 제목</td>
+                <td class="notice-date" th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}">2024-04-12</td>
             </tr>
         </table>
         <div class="number">
-            <a href="">&lt;</a>
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">&gt;</a>
+            <a th:href="@{/notice/all(page=${currentPage- 1})}" th:if="${currentPage > 1}">&lt;</a>
+            <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a th:href="@{/notice/all(page=${i})}" th:text="${i}" th:classappend="${i == currentPage} ? 'current'"></a>
+            </span>
+            <a th:href="@{/notice/all(page=${currentPage + 1})}" th:if="${currentPage < totalPages}">&gt;</a>
         </div>
-        <input type="submit" value="글 작성" id="write"/>
     </div>
 </div>
 </html>

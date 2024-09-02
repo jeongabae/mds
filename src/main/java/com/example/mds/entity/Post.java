@@ -14,30 +14,27 @@ import lombok.Setter;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-//    @Column(length = 200)
-//    private String title;
+    private Long id; //id
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String content; //내용
 
-    private LocalDateTime createDate;
+    private LocalDateTime createDate; //생성일자
 
-    private LocalDateTime modifyDate;
+    private LocalDateTime modifyDate; //수정일자
 
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<Comment> commentList;
+    private List<Comment> commentList; //게시글에 달린 댓글목록
 
     @ManyToOne
-    private Member author;
+    private Member author; //작성자
 
     @ManyToOne
-    private Club club; // 하나의 동아리에 속함
+    private Club club; // 속한 동아리.(게시글은 하나의 동아리에 속함)
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PostImage image;
+    private PostImage image; //게시글 이미지
 
     public String getImageFileName() {
         if (this.image != null) {

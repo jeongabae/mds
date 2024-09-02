@@ -82,6 +82,7 @@ public class ClubService {
         return clubRepository.findByCategory(category);
     }
 
+
     public long getClubMemberCount(Long clubId) {
         return clubMemberRepository.countByClubId(clubId);
     }
@@ -93,6 +94,14 @@ public class ClubService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member name: " + memberName));
         club.setAdmin(admin);
         return clubRepository.save(club);
+    }
+
+    public boolean isClubAdmin(Long clubId, String userEmail) {
+        Club club = clubRepository.findById(clubId).orElse(null);
+        if (club != null) {
+            return club.getAdmin().getEmail().equals(userEmail);
+        }
+        return false;
     }
 
 }

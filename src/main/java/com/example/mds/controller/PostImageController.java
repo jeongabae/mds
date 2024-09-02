@@ -1,6 +1,5 @@
 package com.example.mds.controller;
 
-import com.example.mds.service.ClubImageService;
 import com.example.mds.service.PostImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

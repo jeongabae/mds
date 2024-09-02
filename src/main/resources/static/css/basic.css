@@ -125,7 +125,7 @@ header .head-menu > ul > li > a {
   border-bottom: 3px solid transparent;
 }
 
-header .head-menu ul > li > a:hover {
+header .head-menu > ul > li > a:hover {
   border-bottom: 3px solid #c0c0c0;
 }
 

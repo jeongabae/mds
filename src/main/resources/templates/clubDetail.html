@@ -28,9 +28,10 @@
             <div class="club-content">
                 <div class="club-slogan">
                     <p id="slogan-title">
-                        <img src="/image/Light bulb.png"/> 동아리 설명
+                        <img src="/image/Light bulb.png"/> <span th:utext="${club.introduce}"></span>
                     </p>
-                    <p id="slogan-content" th:utext="${club.explanation.replaceAll('\n', '<br>')}">
+                    <p id="slogan-content" th:utext="${#strings.replace(#strings.replace(club.explanation, '\\\\n', '<br>'), '\n', '<br>')}"></p>
+
                     </p>
                 </div>
                 <div class="club-detail">
@@ -54,10 +55,9 @@
                     </div>
                 </div>
                 <div class="club-pre">
-                    <!--                    <img src="/image/Leadership.png" th:text="' 동아리 이메일 : '+${club.admin.getEmail()}"/>-->
                     <img src="/image/Leadership.png" th:if="${club.admin != null}"
-                         th:text="' 동아리 이메일 : '+${club.admin.getEmail()}"/>
-                    <img src="/image/Leadership.png" th:if="${club.admin == null}" th:text="' 동아리 이메일 : '"/>
+                         th:text="' 동아리 이메일 : '+${club.admin?.getEmail()}"/>
+                    <img src="/image/Leadership.png" th:if="${club.admin == null}" th:text="' 동아리 이메일 : 아직 동아리 이메일이 등록되지않았습니다.'"/>
                 </div>
                 <div class="club-apply">
                     <img src="/image/Form.png" th:if="${club.applicationFormUrl == null}" th:text="' 지원하기 : 아직 지원폼이 등록되지않았습니다.'"/>
@@ -70,20 +70,6 @@
                 </div>
             </div>
         </div>
-<!--        <div class="edit-button">-->
-<!--            <input type="submit" value="소개 수정" id="submit"/>-->
-<!--        </div>-->
-        <!--        <div class="club">-->
-        <!--            <div class="detail-menu">-->
-        <!--                <ul>-->
-        <!--                    <li><a href="#">동아리 공지</a></li>-->
-        <!--                    <li><a href="#">동아리 사진</a></li>-->
-        <!--                    &lt;!&ndash; 관리자만 해당 탭이 보이도록 &ndash;&gt;-->
-        <!--                    <li><a href="#">동아리 구성원 관리</a></li>-->
-        <!--                </ul>-->
-        <!--            </div>-->
-        <!--            <div>dd</div>-->
-        <!--        </div>-->
         <div class="club">
             <div class="detail-tab-menu">
                 <ul>
@@ -92,152 +78,39 @@
                     </li>
                     <li class="tab"><a href="#tab02">동아리 사진</a></li>
                     <!-- 관리자만 아래 탭이 보이도록 -->
-                    <li class="tab" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(admin.email)}"><a href="#tab03">동아리 구성원 관리</a></li>
+                    <li class="tab" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(admin?.email)}"><a href="#tab03">동아리 구성원 관리</a></li>
                     <!-- 관리자만 위의 탭이 보이도록 -->
                 </ul>
             </div>
             <div class="detail-tab-content">
                 <div id="tab1" class="content active">
                     <div class="notice">
-                        <div class="notice-card">
-                            <div class="notice-header">
-                                <div class="notice-status">
-                                    <div class="notice-title">
-                                        공지사항 제목공지사항 제목공지사항 제목공지공지사항
-                                        제목공지사항 제목공지사항 제목공지공지사항 제목공지사항
-                                        제목공지사항 제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항 제목공지
+                        <a th:href="@{|/notice/${notice.id}|}" th:each="notice, iterStat : ${notices}">
+                            <div>
+                            <div th:if="${iterStat.index < 7}">  <!-- 출력할 공지사항의 개수 지정 -->
+                                <div class="notice-card">
+                                    <div class="notice-header">
+                                        <div class="notice-status">
+                                            <div class="notice-title" th:text="${notice.title}">공지사항 제목</div>
+                                            <img class="notice-user-icon"  th:attr="src=@{|/club/image/${club.image.storeFileName}|} ,
+                alt=${club.name + ' 이미지'}">
+                                            <div class="notice-user-name" th:text="${notice.author.name}">홍길동</div>
+                                            <div class="notice-date" th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}">작성일</div>
+                                        </div>
+                                        <div class="notice-edit" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(club.admin?.email)}">
+                                            <a th:href="@{/notice/{id}/edit(id=${notice.id})}"><button class="edit-btn">글 수정</button></a>
+                                        </div>
                                     </div>
-                                    <img class="notice-user-icon" src="/image/profile.jpg"/>
-                                    <div class="notice-user-name">홍길동</div>
+                                    <div class="notice-content" th:text="${notice.content}">공지내용</div>
                                 </div>
-                                <!-- 아래 내용은 관리자만 보이도록 설정 -->
-                                <div class="notice-edit">
-                                    <button class="edit-btn">글 수정</button>
-                                </div>
-                                <!-- 위의 내용은 관리자만 보이도록 설정 -->
-                            </div>
-                            <div class="notice-content">
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용
                             </div>
                         </div>
-                        <div class="notice-card">
-                            <div class="notice-header">
-                                <div class="notice-status">
-                                    <div class="notice-title">
-                                        공지사항 제목공지사항 제목공지사항 제목공지공지사항
-                                    </div>
-                                    <img class="notice-user-icon" src="/image/profile.jpg"/>
-                                    <div class="notice-user-name">홍길동</div>
-                                </div>
-                                <!-- 아래 내용은 관리자만 보이도록 설정 -->
-                                <div class="notice-edit">
-                                    <button class="edit-btn">글 수정</button>
-                                </div>
-                                <!-- 위의 내용은 관리자만 보이도록 설정 -->
-                            </div>
-                            <div class="notice-content">
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용
-                            </div>
-                        </div>
-                        <div class="notice-card">
-                            <div class="notice-header">
-                                <div class="notice-status">
-                                    <div class="notice-title">
-                                        공지사항 제목공지사항 제목공지사항 제목공지공지사항
-                                        제목공지사항 제목공지사항 제목공지공지사항 제목공지사항
-                                        제목공지사항 제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항
-                                        제목공지공지사항 제목공지사항 제목공지사항 제목공지
-                                    </div>
-                                    <img class="notice-user-icon" src="/image/profile.jpg"/>
-                                    <div class="notice-user-name">홍길동</div>
-                                </div>
-                                <!-- 아래 내용은 관리자만 보이도록 설정 -->
-                                <div class="notice-edit">
-                                    <button class="edit-btn">글 수정</button>
-                                </div>
-                                <!-- 위의 내용은 관리자만 보이도록 설정 -->
-                            </div>
-                            <div class="notice-content">
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용 공지내용 공지내용 공지내용
-                                공지내용 공지내용 공지내용
-                            </div>
-                        </div>
+                        </a>
+
                     </div>
                     <!-- 관리자만 아래 내용이 보이도록 -->
-                    <div class="write-area" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(admin.email)}">
-                        <a href="#" class="write-btn">글 작성</a>
+                    <div class="write-area" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(club.admin?.email)}">
+                        <a th:href="@{/notice/create}" class="write-btn">글 작성</a>
                     </div>
                     <!-- 관리자만 위의 내용이 보이도록 -->
                 </div>
@@ -245,11 +118,11 @@
                     <div class="community" >
                         <a th:href="@{|/community/${post.id}|}" class="community-card" th:each="post : ${posts}">
                             <div class="community-img">
-                                <img th:attr="src=@{|/club/image/${club.image.storeFileName}|} ,
+                                <img th:attr="src=@{|/post/image/${post.image.storeFileName}|} ,
                 alt=${club.name + ' 이미지'}">
                             </div>
                             <div class="community-user">
-                                <div class="community-user-icon"></div>
+                                <div class="community-user-icon"><img src="/image/basicprofile.png"/></div>
                                 <div class="community-title" th:text="${post.author.name}">작성자1</div>
                                 <div class="community-club" th:text="'#' +${post.club.name}">#동아리1</div>
                             </div>
@@ -257,15 +130,14 @@
                         </a>
 
                     </div>
-                    <div class="write-area">
-                        <a href="#" class="write-btn">추가하기</a>
-                        <a href="#" class="write-btn">삭제하기</a>
+                    <div class="write-area" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/community/create}"  class="write-btn">추가하기</a>
                     </div>
                 </div>
                 <!-- 숨겨진 클럽 ID 필드 추가 -->
                 <input type="hidden" id="clubId" th:value="${club.id}">
                 <!-- 관리자만 아래 내용이 보이도록 -->
-                <div id="tab3" class="content" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(admin.email)}">
+                <div id="tab3" class="content" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username.equals(admin?.email)}">
                     <div class="management-count">
                         <img class="group-img" src="/image/PeopleImg.png" alt=""/>
                         <span th:text="${memberCount}+'명'"></span>
@@ -273,7 +145,7 @@
                     <div class="management">
                         <div class="member-card" th:each="clubmember : ${members}">
                             <div class="member-inform">
-                                <img class="member-icon" src="/image/profile.jpg" alt=""/>
+                                <img class="member-icon" src="/image/basicprofile.png" alt=""/>
                                 <div class="member-name" th:text="${clubmember.member.name}">홍길동</div>
                                 <div class="member-major" th:text="${clubmember.member.major}">컴퓨터정보통신공학부</div>
                                 <div class="member-id" th:text="${clubmember.member.studentId}">2018253027</div>
@@ -338,21 +210,6 @@
         });
     });
 
-    // 동아리원 추방 모달
-    // const modal = document.querySelector('#popup');
-    // const modalOpen = document.querySelector('#popup-on');
-    // const modalYes = document.querySelector('#popup-yes');
-    // const modalNo = document.querySelector('#popup-no');
-    //
-    // modalOpen.addEventListener('click', function() {
-    //     modal.style.display = 'flex';
-    // });
-    // modalYes.addEventListener('click', function() {
-    //     modal.style.display = 'none';
-    // });
-    // modalNo.addEventListener('click', function() {
-    //     modal.style.display = 'none';
-    // });
     let currentStudentId = null;
 
     function showPopup(button) {
@@ -416,7 +273,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('회원 가입에 실패했습니다.');
+                    alert('구성원 추가에 실패했습니다.');
                 });
         }
     }

@@ -13,18 +13,22 @@ import java.util.List;
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //id
 
     @Column(length = 200)
-    private String title;
+    private String title; //제목
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String content; //설명
 
-    private LocalDateTime createDate;
+    private LocalDateTime createDate; //생성일자
 
-    private LocalDateTime modifyDate;
+    private LocalDateTime modifyDate; //수정일자
 
     @ManyToOne
-    private Club club;
+    private Club club; //동아리
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Member author; //작성자
 }

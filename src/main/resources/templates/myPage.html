@@ -10,7 +10,7 @@
         <h1>My Page</h1>
         <div class="profile">
             <div class="profile-detail">
-                <div id="photo"><img src="/image/profile.jpg"/></div>
+                <div id="photo"><img src="/image/basicprofile.png"/></div>
                 <table>
                     <tr>
                         <td id="name" sec:authorize="isAuthenticated()"
@@ -31,15 +31,10 @@
                     </a>
                 </div>
             </div>
-            <!--      <div id="del-info"><a th:href="@{/member/withdraw}">회원 탈퇴</a></div>-->
             <div id="del-info">
-<!--                <button type="button" onclick="withdrawMember()">회원 탈퇴</button>-->
                 <form id="withdrawForm">
                     <button type="submit">회원 탈퇴</button>
                 </form>
-<!--                <form th:action="@{/member/withdraw}" method="post">-->
-<!--                    <button type="submit">회원 탈퇴</button>-->
-<!--                </form>-->
             </div>
 
         </div>

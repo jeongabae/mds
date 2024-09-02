@@ -1,7 +1,6 @@
 package com.example.mds.controller;
 
 import com.example.mds.common.MemberRole;
-import com.example.mds.dto.club.response.ClubDetailResponse;
 import com.example.mds.dto.club.response.MyClubsResponse;
 import com.example.mds.dto.member.request.MemberCreateRequest;
 import com.example.mds.dto.member.request.MemberUpdateRequest;
@@ -20,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +37,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberSecurityService memberSecurityService;
 
+    @Operation(summary = "회원가입 페이지")
     @GetMapping("/signup")
     public String signup(Model model,MemberCreateRequest memberCreateRequest) {
         model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
@@ -48,11 +47,14 @@ public class MemberController {
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")
-    public String signup(@Valid MemberCreateRequest memberCreateRequest, BindingResult bindingResult){
+    public String signup(@Valid MemberCreateRequest memberCreateRequest, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+
             return "signup";
         }
         if (!memberCreateRequest.getPassword1().equals(memberCreateRequest.getPassword2())){
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
             bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 비밀번호가 일치하지 않습니다.");
             return "signup";
         }
@@ -61,10 +63,14 @@ public class MemberController {
                     memberCreateRequest.getPassword1(), memberCreateRequest.getStudentId(), memberCreateRequest.getMajor());
         }catch(DataIntegrityViolationException e){
             e.printStackTrace();
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "signup";
         } catch(Exception e){
             e.printStackTrace();
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup";
         }
@@ -88,16 +94,13 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
     }
 
+    @Operation(summary = "로그인 페이지")
     @GetMapping("/login")
     public String login(){
         return "login";
     }
-//
-//    @GetMapping("/mypage")
-//    public String mypage(){
-//        return "myPage";
-//    }
 
+    @Operation(summary = "마이 페이지")
     @GetMapping("/mypage")
     public String mypage(Model model){
 
@@ -123,6 +126,7 @@ public class MemberController {
         return "myPage";
     }
 
+    @Operation(summary = "회원정보 업데이트 페이지")
     @GetMapping("/update")
     public String showUpdateForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -133,20 +137,25 @@ public class MemberController {
         updateRequest.setName(member.getName());
         updateRequest.setStudentId(member.getStudentId());
         updateRequest.setMajor(member.getMajor());
-        // 이 외에도 필요한 정보들을 updateRequest에 세팅해줍니다.
+        // 이 외에도 필요한 정보들을 updateRequest에 세팅해줌.
         model.addAttribute("updateRequest", updateRequest);
+        model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+
         return "updateProfile";
     }
 
     @Operation(summary = "회원정보 업데이트")
     @PostMapping("/update")
     public String updateMember(@Valid @ModelAttribute("updateRequest") MemberUpdateRequest updateRequest,
-                               BindingResult bindingResult) {
+                               BindingResult bindingResult, Model model) {
         if (!updateRequest.getPassword().equals(updateRequest.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordMismatch", "비밀번호가 일치하지 않습니다.");
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
+
             return "updateProfile";
         }
         if (bindingResult.hasErrors()) {
+            model.addAttribute("majors", Arrays.asList("컴퓨터정보통신공학부", "소프트웨어학부", "경영학부", "디자인예술학부", "자율융합학부", "디지털헬스케어학부", "물리치료학과", "작업치료학과"));
             return "updateProfile";
         }
         memberService.update(updateRequest);
@@ -163,21 +172,6 @@ public class MemberController {
         return "redirect:/member/mypage";
     }
 
-    // 회원 탈퇴 처리
-//    @Operation(summary = "회원 탈퇴")
-//    @PostMapping("/withdraw")
-//    public String withdrawMember(Authentication authentication) {
-//        CustomUser userDetails = (CustomUser) authentication.getPrincipal();
-//        memberService.deleteMember(userDetails.getUsername());
-//        return "redirect:/member/logout"; // 로그아웃 페이지로 리다이렉트 또는 다른 페이지로 이동
-//    }
-//    @Operation(summary = "회원 탈퇴")
-//    @DeleteMapping("/withdraw")
-//    public String withdrawMember(Authentication authentication) {
-//        CustomUser userDetails = (CustomUser) authentication.getPrincipal();
-//        memberService.deleteMember(userDetails.getUsername());
-//        return "redirect:/member/logout"; // 로그아웃 페이지로 리다이렉트 또는 다른 페이지로 이동
-//    }
     @Operation(summary = "회원 탈퇴")
     @DeleteMapping("/withdraw")
     public ResponseEntity<Void> withdrawMember(Authentication authentication) {
@@ -189,9 +183,11 @@ public class MemberController {
     @Operation(summary = "동아리에 회원 가입시키기")
     @PostMapping("/join")
     public ResponseEntity<String> joinClub(@RequestParam("studentId") Long studentId, @RequestParam("clubId") Long clubId) {
+        if (memberService.isMemberAlreadyJoined(studentId, clubId)) {
+            return new ResponseEntity<>("Already joined this club", HttpStatus.BAD_REQUEST);
+        }
         memberService.joinClub(studentId, clubId);
         return new ResponseEntity<>("Joined club successfully", HttpStatus.OK);
-//        return "redirect:/club/" + clubId;
     }
 
     @Operation(summary = "동아리에서 회원 탈퇴시키기")
@@ -207,6 +203,4 @@ public class MemberController {
         List<Club> clubs = memberService.getClubsForMember(email);
         return new ResponseEntity<>(clubs, HttpStatus.OK);
     }
-
-
 }
