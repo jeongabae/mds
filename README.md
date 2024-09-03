@@ -1,3 +1,19 @@
+## 담당
+- 동아리 관련 기능
+  - 동아리 등록, 조회(전부, 카테고리 별, 상세), 동아리장 설정 등
+
+- 회원 관련 기능
+  - 회원가입(동아리 별 관리자/유저), 로그인, 정보 수정, 회원탈퇴, 회원이 가입한 동아리 목록 조회, 동아리에 회원 가입시키기(관리자만 가능), 동아리에서 회원 탈퇴시키기(관리자만 가능)
+
+- 커뮤니티 관련 기능
+  - 게시글 작성, 조회(전부, 카테고리 별, 상세), 수정, 삭제 등
+  - 댓글 작성, 조회, 삭제 등
+
+- 게시글, 동아리 이미지 관련
+  - 게시글, 동아리 이미지 로드
+
+- 그 외에도 Thymeleaf를 활용한 템플릿 렌더링, 데이터 삽입, 메뉴얼 작성을 담당함.
+
 ![image-1(Powered by MaxAI)](https://github.com/user-attachments/assets/b07db3cd-59a3-444b-b2a7-93d875d26dcc)
 ![image-2(Powered by MaxAI)](https://github.com/user-attachments/assets/6cc14df2-4ab2-4672-ace1-4e580813c25d)
 ![image-3(Powered by MaxAI)](https://github.com/user-attachments/assets/647094df-192e-4d2a-836d-8cd0320f8b59)
